@@ -1,0 +1,18 @@
+import type { Meta, StoryObj } from '@storybook/react'
+
+import { {{titleCase name}} } from './{{titleCase name}}.tsx'
+
+const meta: Meta<typeof {{titleCase name}}> = {
+  title: 'components/{{titleCase name}}',
+  component: {{titleCase name}},
+} as Meta
+
+export default meta
+
+const template = {
+  render: () => <{{titleCase name}} />,
+}
+
+export const Default: Storyobj = {
+  ...template,
+}
