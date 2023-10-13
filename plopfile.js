@@ -32,12 +32,4 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   });
-
-  plop.setHelper("snakeCase", (str) => {
-    return str
-      .replace(/\W+/g, " ")
-      .split(/ |\B(?=[A-Z])/)
-      .map((word) => word.toLowerCase())
-      .join("_");
-  });
 }
