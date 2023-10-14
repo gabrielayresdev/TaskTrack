@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styles from "./Authenticate.module.sass";
 import logo from "/src/assets/Logo.png";
 import Login from "../../components/Login/Login";
+import Register from "../../components/Register/Register";
 
 export const Authenticate = () => {
   return (
@@ -17,7 +18,8 @@ export const Authenticate = () => {
       </header>
       <BrowserRouter>
         <Routes>
-          <Route path="/Login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </>
