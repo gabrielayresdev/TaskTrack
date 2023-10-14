@@ -13,6 +13,7 @@ Funcionalidades principais:
 
 Funcionalidades adicionais:
 
+- Ordenar as tasks
 - Modo escuro e claro
 - Pesquisar por tarefas
 - CRUD de grupos de tarefas

@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { {{titleCase name}} } from './{{titleCase name}}.tsx'
+import { Button } from './Button.tsx'
 
 const meta = {
-  title: 'components/{{titleCase name}}',
-  component: {{titleCase name}},
+  title: 'components/Button',
+  component: Button,
 } as Meta
 
 export default meta
 
 const template = {
-  render: () => <{{titleCase name}} />,
+  render: () => <Button />,
 }
 
 export const Default: StoryObj = {
