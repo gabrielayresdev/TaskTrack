@@ -4,16 +4,16 @@ import Input from "../Input/Index";
 import styles from "./Login.module.sass";
 import Button from "../Button/Button";
 import AuthenticationToggle from "../AuthenticationToggle/AuthenticationToggle";
-import { api } from "../../services/api";
 
 import SvgPerson from "../../iconComponents/Icons/Person";
 import SvgLock from "../../iconComponents/Icons/Lock";
 import eyeSlashed from "../../assets/Icons/EyeSlashed.png";
 import eyeRegular from "../../assets/Icons/EyeRegular.png";
+import useForm from "../../hooks/useForm";
 
 export const Login = () => {
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const email = useForm("email");
+  const password = useForm("password");
 
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
@@ -27,8 +27,9 @@ export const Login = () => {
           <SvgPerson />
           <Input.Field
             type="email"
-            value={email}
-            setValue={setEmail}
+            value={email.value}
+            handleChange={email.onChange}
+            onBlur={() => email.validate()}
             placeholder="type your email"
           />
         </Input.Input>
@@ -36,8 +37,9 @@ export const Login = () => {
           <SvgLock />
           <Input.Field
             type={passwordVisible ? "text" : "password"}
-            value={password}
-            setValue={setPassword}
+            value={password.value}
+            handleChange={password.onChange}
+            onBlur={() => password.validate()}
             placeholder="type your password"
           />
           <div
