@@ -22,7 +22,7 @@ export const Register = () => {
   return (
     <div className={styles.wrapper}>
       <Form>
-        <Input.Input label="email" id="email">
+        <Input.Input label="email" id="email" error={email.error}>
           <SvgPerson />
           <Input.Field
             type="email"
@@ -32,7 +32,7 @@ export const Register = () => {
             placeholder="type your email"
           />
         </Input.Input>
-        <Input.Input label="password" id="password">
+        <Input.Input label="password" id="password" error={password.error}>
           <SvgLock />
           <Input.Field
             type={passwordVisible ? "text" : "password"}
@@ -42,7 +42,11 @@ export const Register = () => {
             placeholder="type your password"
           />
         </Input.Input>
-        <Input.Input label="confirm you password" id="passwordConfirm">
+        <Input.Input
+          label="confirm you password"
+          id="passwordConfirm"
+          error={confirmPassword.error}
+        >
           <SvgLock />
           <Input.Field
             type={passwordVisible ? "text" : "password"}

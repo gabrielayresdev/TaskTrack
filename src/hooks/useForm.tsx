@@ -19,6 +19,14 @@ const useForm = (type: IRulesTypes, compr?: string) => {
   const [value, setValue] = React.useState<string>("");
   const [error, setError] = React.useState<string | null>(null);
 
+  function validateAtEachChangeIfThereIsAnError() {
+    if (error) validate();
+  }
+
+  React.useEffect(() => {
+    validateAtEachChangeIfThereIsAnError();
+  }, [value, validateAtEachChangeIfThereIsAnError]);
+
   const rules: IRules = {
     email: {
       validation: () => {
@@ -45,7 +53,7 @@ const useForm = (type: IRulesTypes, compr?: string) => {
           return false;
         } else if (!regex.test(value)) {
           setError(
-            "Invalid password. Password must contain a minimum of 4 characters, including at least one uppercase letter, one lowercase letter, and one number."
+            "Password must contain at least 4 characters, one uppercase letter, one lowercase letter, and one number."
           );
           return false;
         } else {
@@ -54,8 +62,9 @@ const useForm = (type: IRulesTypes, compr?: string) => {
         }
       },
     },
-    confirmPasword: {
+    confirmPassword: {
       validation: () => {
+        console.log(compr);
         if (value.length === 0) {
           setError("Required field");
           return false;
@@ -119,8 +128,7 @@ const useForm = (type: IRulesTypes, compr?: string) => {
   }
 
   function onChange({ target }: React.ChangeEvent<HTMLInputElement>) {
-    if (error) validate();
-    else setValue(target.value);
+    setValue(target.value);
   }
 
   return { value, error, onChange, validate: () => validate() };

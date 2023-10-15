@@ -23,7 +23,7 @@ export const Login = () => {
   return (
     <div className={styles.wrapper}>
       <Form>
-        <Input.Input label="email" id="email">
+        <Input.Input label="email" id="email" error={email.error}>
           <SvgPerson />
           <Input.Field
             type="email"
@@ -33,7 +33,7 @@ export const Login = () => {
             placeholder="type your email"
           />
         </Input.Input>
-        <Input.Input label="password" id="password">
+        <Input.Input label="password" id="password " error={password.error}>
           <SvgLock />
           <Input.Field
             type={passwordVisible ? "text" : "password"}
