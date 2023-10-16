@@ -23,9 +23,10 @@ const useForm = (type: IRulesTypes, compr?: string) => {
     if (error) validate();
   }
 
-  React.useEffect(() => {
-    validateAtEachChangeIfThereIsAnError();
-  }, [value, validateAtEachChangeIfThereIsAnError]);
+  React.useEffect(validateAtEachChangeIfThereIsAnError, [
+    value,
+    validateAtEachChangeIfThereIsAnError,
+  ]);
 
   const rules: IRules = {
     email: {

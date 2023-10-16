@@ -10,14 +10,26 @@ import SvgLock from "../../iconComponents/Icons/Lock";
 import eyeSlashed from "../../assets/Icons/EyeSlashed.png";
 import eyeRegular from "../../assets/Icons/EyeRegular.png";
 import useForm from "../../hooks/useForm";
+import { useNotificationContext } from "../../contexts/NotificationContext";
 
 export const Login = () => {
   const email = useForm("email");
   const password = useForm("password");
 
+  const context = useNotificationContext();
+
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
 
   function handleClick(): true {
+    if (password.validate() && email.validate()) {
+      return true;
+    } else {
+      context.createNotification({
+        type: "Alert",
+        message: "Alguns campos não foram preenchidos corretamente",
+      });
+    }
+
     return true;
   }
   return (
