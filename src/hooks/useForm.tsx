@@ -6,6 +6,13 @@ interface IRules {
   };
 }
 
+export interface IUseForm {
+  value: string;
+  error: string | null;
+  onChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
+  validate: () => boolean;
+}
+
 type IRulesTypes =
   | "email"
   | "password"
@@ -15,7 +22,7 @@ type IRulesTypes =
   | "notNull"
   | null;
 
-const useForm = (type: IRulesTypes, compr?: string) => {
+const useForm = (type: IRulesTypes, compr?: string): IUseForm => {
   const [value, setValue] = React.useState<string>("");
   const [error, setError] = React.useState<string | null>(null);
 
@@ -132,7 +139,7 @@ const useForm = (type: IRulesTypes, compr?: string) => {
     setValue(target.value);
   }
 
-  return { value, error, onChange, validate: () => validate() };
+  return { value, error, setValue, onChange, validate: () => validate() };
 };
 
 export default useForm;
