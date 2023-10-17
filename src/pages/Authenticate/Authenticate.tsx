@@ -3,6 +3,7 @@ import styles from "./Authenticate.module.sass";
 import logo from "/src/assets/Logo.png";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
+import RegisterContextProvider from "../../contexts/RegisterContext";
 
 export const Authenticate = () => {
   return (
@@ -17,10 +18,12 @@ export const Authenticate = () => {
         <div className={styles.steps}></div>
       </header>
       <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+        <RegisterContextProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </RegisterContextProvider>
       </BrowserRouter>
     </>
   );

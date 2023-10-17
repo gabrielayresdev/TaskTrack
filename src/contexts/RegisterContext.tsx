@@ -1,5 +1,6 @@
 import React from "react";
 import useForm, { IUseForm } from "../hooks/useForm";
+import usePagination from "../hooks/usePagination";
 
 const RegisterContext = React.createContext<IRegisterContext | null>(null);
 
@@ -13,10 +14,10 @@ interface IRegisterData {
 }
 
 interface IRegisterContext {
-  state: IRegisterData;
-  setState: React.Dispatch<React.SetStateAction<IRegisterData>>;
-  values: any;
-  dispatch: React.Dispatch<any>;
+  formValues: IRegisterData;
+  page: number;
+  GoNextPage: VoidFunction;
+  GoPreviousPage: VoidFunction;
 }
 
 export function useRegisterContext() {
@@ -26,53 +27,20 @@ export function useRegisterContext() {
 }
 
 const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
-  /* const [state, setState] = React.useState<IRegisterData>({
+  const formValues = {
     email: useForm("email"),
     password: useForm("password"),
     confirmPassword: useForm("confirmPassword"),
     name: useForm("name"),
     cellphone: useForm("number"),
     groups: [],
-  }); */
-  /* const [values, dispatch] = React.useReducer(handleChange, {
-    email: useForm("email"),
-    password: useForm("password"),
-    confirmPassword: useForm("confirmPassword"),
-    name: useForm("name"),
-    cellphone: useForm("number"),
-    groups: [],
-  }); */
-  const [values, dispatch] = React.useReducer(handleChange, {
-    email: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-    cellphone: "",
-    groups: [],
-  });
-
-  function handleChange(state, action) {
-    switch (action.type) {
-      case "email":
-        return { ...state, email: action.content };
-      case "password":
-        return { ...state, password: action.content };
-      case "confirmPassword":
-        return { ...state, confirmPassword: action.content };
-      case "name":
-        return { ...state, name: action.content };
-      case "cellphone":
-        return { ...state, cellphone: action.content };
-      case "groups":
-        return { ...state, groups: [...state.groups, action.content] };
-
-      default:
-        return state;
-    }
-  }
+  };
+  const { page, GoNextPage, GoPreviousPage } = usePagination(3);
 
   return (
-    <RegisterContext.Provider value={{ values, dispatch }}>
+    <RegisterContext.Provider
+      value={{ formValues, page, GoNextPage, GoPreviousPage }}
+    >
       {children}
     </RegisterContext.Provider>
   );

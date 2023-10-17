@@ -10,13 +10,8 @@ import { useRegisterContext } from "../../../../contexts/RegisterContext";
 
 export const AuthForm = () => {
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
-  const { values, dispatch } = useRegisterContext();
-
-  const { email, password, confirmPassword } = values;
-
-  function handleClick(): true {
-    return true;
-  }
+  const { formValues, GoNextPage } = useRegisterContext();
+  const { email, password, confirmPassword } = formValues;
 
   return (
     <>
@@ -26,9 +21,7 @@ export const AuthForm = () => {
           <Input.Field
             type="email"
             value={email.value}
-            handleChange={({ target }) => {
-              dispatch({ type: "email", content: target.value });
-            }}
+            handleChange={email.onChange}
             onBlur={() => email.validate()}
             placeholder="type your email"
           />
@@ -38,9 +31,7 @@ export const AuthForm = () => {
           <Input.Field
             type={passwordVisible ? "text" : "password"}
             value={password.value}
-            handleChange={({ target }) => {
-              dispatch({ type: "password", content: target.value });
-            }}
+            handleChange={password.onChange}
             onBlur={() => password.validate()}
             placeholder="type your password"
           />
@@ -54,9 +45,7 @@ export const AuthForm = () => {
           <Input.Field
             type={passwordVisible ? "text" : "password"}
             value={confirmPassword.value}
-            handleChange={({ target }) => {
-              dispatch({ type: "email", content: target.value });
-            }}
+            handleChange={confirmPassword.onChange}
             onBlur={() => confirmPassword.validate()}
             placeholder="type your password again"
           />
@@ -71,7 +60,7 @@ export const AuthForm = () => {
           <label htmlFor="visible">Show password</label>
         </div>
 
-        <Button text="Sign up" onClick={handleClick} />
+        <Button text="Sign up" onClick={GoNextPage} />
       </Form>
 
       <AuthenticationToggle

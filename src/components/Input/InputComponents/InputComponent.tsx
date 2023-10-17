@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./InputComponent.module.sass";
 
 interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
-  type: string;
+  type?: string;
   value: string;
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
 }
