@@ -7,7 +7,6 @@ const RegisterContext = React.createContext<IRegisterContext | null>(null);
 interface IRegisterData {
   email: IUseForm;
   password: IUseForm;
-  confirmPassword: IUseForm;
   name: IUseForm;
   cellphone: IUseForm;
   groups: string[];
@@ -30,7 +29,6 @@ const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
   const formValues = {
     email: useForm("email"),
     password: useForm("password"),
-    confirmPassword: useForm("confirmPassword"),
     name: useForm("name"),
     cellphone: useForm("number"),
     groups: [],

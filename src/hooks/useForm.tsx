@@ -72,7 +72,7 @@ const useForm = (type: IRulesTypes, compr?: string): IUseForm => {
     },
     confirmPassword: {
       validation: () => {
-        console.log(compr);
+        console.log("Comparing", value, "to", compr);
         if (value.length === 0) {
           setError("Required field");
           return false;
@@ -81,7 +81,7 @@ const useForm = (type: IRulesTypes, compr?: string): IUseForm => {
           return false;
         } else {
           setError(null);
-          return false;
+          return true;
         }
       },
     },
@@ -139,7 +139,7 @@ const useForm = (type: IRulesTypes, compr?: string): IUseForm => {
     setValue(target.value);
   }
 
-  return { value, error, setValue, onChange, validate: () => validate() };
+  return { value, error, onChange, validate: () => validate() };
 };
 
 export default useForm;

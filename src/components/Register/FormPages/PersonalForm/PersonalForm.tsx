@@ -4,11 +4,18 @@ import SvgPerson from "../../../../iconComponents/Icons/Person";
 import Button from "../../../Button/Button";
 import Form from "../../../Form/Form";
 import Input from "../../../Input/Index";
+import styles from "./PersonalForm.module.sass";
 
 export const PersonalForm = () => {
-  const { formValues, GoNextPage } = useRegisterContext();
-
+  const { formValues, GoNextPage, GoPreviousPage } = useRegisterContext();
   const { name, cellphone } = formValues;
+
+  function handleClick() {
+    if (name.validate() && cellphone.validate()) {
+      GoNextPage();
+    }
+  }
+
   return (
     <Form>
       <Input.Input label="full name" id="name" error={name.error}>
@@ -31,7 +38,10 @@ export const PersonalForm = () => {
         />
       </Input.Input>
 
-      <Button text="Sign up" onClick={GoNextPage} />
+      <Button text="Sign up" onClick={handleClick} />
+      <button className={styles.return} onClick={GoPreviousPage}>
+        return
+      </button>
     </Form>
   );
 };

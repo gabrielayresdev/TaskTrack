@@ -7,11 +7,19 @@ import SvgLock from "../../../../iconComponents/Icons/Lock";
 import AuthenticationToggle from "../../../AuthenticationToggle/AuthenticationToggle";
 import Button from "../../../Button/Button";
 import { useRegisterContext } from "../../../../contexts/RegisterContext";
+import useForm from "../../../../hooks/useForm";
 
 export const AuthForm = () => {
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
   const { formValues, GoNextPage } = useRegisterContext();
-  const { email, password, confirmPassword } = formValues;
+  const { email, password } = formValues;
+  const confirmPassword = useForm("confirmPassword", password.value);
+
+  function handleClick() {
+    if (email.validate() && password.validate() && confirmPassword.validate()) {
+      GoNextPage();
+    }
+  }
 
   return (
     <>
@@ -60,7 +68,7 @@ export const AuthForm = () => {
           <label htmlFor="visible">Show password</label>
         </div>
 
-        <Button text="Sign up" onClick={GoNextPage} />
+        <Button text="Continue" onClick={handleClick} />
       </Form>
 
       <AuthenticationToggle
