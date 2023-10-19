@@ -87,7 +87,7 @@ const useForm = (type: IRulesTypes, compr?: string): IUseForm => {
     },
     name: {
       validation: () => {
-        const regex = /^[a-zA-ZÀ-ÿ\s]$/;
+        const regex = /^[a-zA-ZÀ-ÿ\s]+$/;
 
         if (value.length === 0) {
           setError("Required field");

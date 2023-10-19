@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
-import TaskForm from './TaskForm.tsx'
+import RadioButton from './RadioButton.tsx'
 
 const { getByTestId } = screen;
 
 
 
-describe('<TaskForm />', () => {
+describe('<RadioButton />', () => {
   beforeEach(() => {
-    render(<TaskForm />)
+    render(<RadioButton />)
   })
 
   test('Should pass always', () => {

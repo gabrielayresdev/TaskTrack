@@ -9,7 +9,7 @@ interface IRegisterData {
   password: IUseForm;
   name: IUseForm;
   cellphone: IUseForm;
-  groups: string[];
+  groups: [string[], React.Dispatch<React.SetStateAction<string[]>>];
 }
 
 interface IRegisterContext {
@@ -31,7 +31,7 @@ const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
     password: useForm("password"),
     name: useForm("name"),
     cellphone: useForm("number"),
-    groups: [],
+    groups: React.useState<string[]>([]),
   };
   const { page, GoNextPage, GoPreviousPage } = usePagination(3);
 

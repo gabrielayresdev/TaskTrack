@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { TaskForm } from './TaskForm.tsx'
+import { RadioButton } from './RadioButton.tsx'
 
 const meta = {
-  title: 'components/TaskForm',
-  component: TaskForm,
+  title: 'components/RadioButton',
+  component: RadioButton,
 } as Meta
 
 export default meta
 
 const template = {
-  render: () => <TaskForm />,
+  render: () => <RadioButton />,
 }
 
 export const Default: StoryObj = {
