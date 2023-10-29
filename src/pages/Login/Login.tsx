@@ -1,8 +1,8 @@
 import React from "react";
-import AuthenticationToggle from "../FormComponents/AuthenticationToggle/AuthenticationToggle";
-import Form from "../FormComponents/Form/Form";
-import Input from "../FormComponents/Input/Index";
-import Button from "../Shared/Button/Button";
+import AuthenticationToggle from "../../components/FormComponents/AuthenticationToggle/AuthenticationToggle";
+import Form from "../../components/FormComponents/Form/Form";
+import Input from "../../components/FormComponents/Input/Index";
+import Button from "../../components/Shared/Button/Button";
 import styles from "./Login.module.sass";
 
 import eyeRegular from "../../assets/Icons/EyeRegular.png";
@@ -11,6 +11,7 @@ import { useNotificationContext } from "../../contexts/NotificationContext";
 import useForm from "../../hooks/useForm";
 import SvgLock from "../../iconComponents/Icons/Lock";
 import SvgPerson from "../../iconComponents/Icons/Person";
+import AuthHeader from "../../components/Shared/AuthHeader/AuthHeader";
 
 export const Login = () => {
   const email = useForm("email");
@@ -34,7 +35,8 @@ export const Login = () => {
   }
   return (
     <div className={styles.wrapper}>
-      <Form>
+      <AuthHeader />
+      <Form className={styles.formWrapper}>
         <Input.Input label="email" id="email" error={email.error}>
           <SvgPerson />
           <Input.Field

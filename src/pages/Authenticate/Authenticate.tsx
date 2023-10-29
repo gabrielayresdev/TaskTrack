@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+/* import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styles from "./Authenticate.module.sass";
 import logo from "/src/assets/Logo.png";
-import Login from "../../components/Login/Login";
+import Login from "../Login/Login";
 import Register from "../../components/Register/Register";
 import RegisterContextProvider from "../../contexts/RegisterContext";
 
@@ -30,3 +30,4 @@ export const Authenticate = () => {
 };
 
 export default Authenticate;
+ */

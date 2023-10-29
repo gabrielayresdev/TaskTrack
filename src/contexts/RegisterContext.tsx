@@ -1,6 +1,7 @@
 import React from "react";
 import useForm, { IUseForm } from "../hooks/useForm";
 import usePagination from "../hooks/usePagination";
+import { Outlet } from "react-router-dom";
 
 const RegisterContext = React.createContext<IRegisterContext | null>(null);
 
@@ -25,6 +26,14 @@ export function useRegisterContext() {
   if (!context) throw new Error("useContext must be inside provider");
   else return context;
 }
+
+export const RegisterContextLayout = () => {
+  return (
+    <RegisterContextProvider>
+      <Outlet />
+    </RegisterContextProvider>
+  );
+};
 
 const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
   const formValues = {

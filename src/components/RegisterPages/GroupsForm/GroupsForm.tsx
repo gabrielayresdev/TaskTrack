@@ -1,12 +1,12 @@
 import React from "react";
-import RadioButton from "../../../FormComponents/RadioButton/RadioButton";
+import RadioButton from "../../FormComponents/RadioButton/RadioButton";
 import styles from "./GroupsForm.module.sass";
-import SvgPerson from "../../../../iconComponents/Icons/Person";
-import SvgWork from "../../../../iconComponents/Icons/Work";
-import SvgStudies from "../../../../iconComponents/Icons/Studies";
-import Button from "../../../Shared/Button/Button";
-import { useRegisterContext } from "../../../../contexts/RegisterContext";
-import { useNotificationContext } from "../../../../contexts/NotificationContext";
+import SvgPerson from "../../../iconComponents/Icons/Person";
+import SvgWork from "../../../iconComponents/Icons/Work";
+import SvgStudies from "../../../iconComponents/Icons/Studies";
+import Button from "../../Shared/Button/Button";
+import { useRegisterContext } from "../../../contexts/RegisterContext";
+import { useNotificationContext } from "../../../contexts/NotificationContext";
 
 export const GroupsForm = () => {
   const { GoPreviousPage, register } = useRegisterContext();

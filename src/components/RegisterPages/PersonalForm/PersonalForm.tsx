@@ -1,9 +1,9 @@
-import { useRegisterContext } from "../../../../contexts/RegisterContext";
-import SvgLock from "../../../../iconComponents/Icons/Lock";
-import SvgPerson from "../../../../iconComponents/Icons/Person";
-import Button from "../../../Shared/Button/Button";
-import Form from "../../../FormComponents/Form/Form";
-import Input from "../../../FormComponents/Input/Index";
+import { useRegisterContext } from "../../../contexts/RegisterContext";
+import SvgLock from "../../../iconComponents/Icons/Lock";
+import SvgPerson from "../../../iconComponents/Icons/Person";
+import Button from "../../Shared/Button/Button";
+import Form from "../../FormComponents/Form/Form";
+import Input from "../../FormComponents/Input/Index";
 import styles from "./PersonalForm.module.sass";
 
 export const PersonalForm = () => {
