@@ -17,6 +17,7 @@ interface IRegisterContext {
   page: number;
   GoNextPage: VoidFunction;
   GoPreviousPage: VoidFunction;
+  register: VoidFunction;
 }
 
 export function useRegisterContext() {
@@ -35,9 +36,29 @@ const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
   };
   const { page, GoNextPage, GoPreviousPage } = usePagination(3);
 
+  async function register() {
+    const response = await fetch(
+      "https://tasktrack-gabrielayresdev.onrender.com/auth/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formValues.email.value,
+          name: formValues.name.value,
+          password: formValues.password.value,
+          role: "USER",
+        }),
+      }
+    );
+    const json = response.json();
+    console.log(json);
+  }
+
   return (
     <RegisterContext.Provider
-      value={{ formValues, page, GoNextPage, GoPreviousPage }}
+      value={{ formValues, page, GoNextPage, GoPreviousPage, register }}
     >
       {children}
     </RegisterContext.Provider>

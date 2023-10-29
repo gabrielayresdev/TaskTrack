@@ -1,15 +1,15 @@
 import React from "react";
-import RadioButton from "../../../RadioButton/RadioButton";
+import RadioButton from "../../../FormComponents/RadioButton/RadioButton";
 import styles from "./GroupsForm.module.sass";
 import SvgPerson from "../../../../iconComponents/Icons/Person";
 import SvgWork from "../../../../iconComponents/Icons/Work";
 import SvgStudies from "../../../../iconComponents/Icons/Studies";
-import Button from "../../../Button/Button";
+import Button from "../../../Shared/Button/Button";
 import { useRegisterContext } from "../../../../contexts/RegisterContext";
 import { useNotificationContext } from "../../../../contexts/NotificationContext";
 
 export const GroupsForm = () => {
-  const { GoPreviousPage } = useRegisterContext();
+  const { GoPreviousPage, register } = useRegisterContext();
   const { formValues } = useRegisterContext();
   const { groups: groupsContext } = formValues;
   const [groups, setGroups] = groupsContext;
@@ -36,6 +36,8 @@ export const GroupsForm = () => {
         type: "Alert",
         message: "You must choose at least one group",
       });
+    } else {
+      register();
     }
   }
 

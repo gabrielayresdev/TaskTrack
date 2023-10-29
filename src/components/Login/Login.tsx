@@ -1,16 +1,16 @@
 import React from "react";
-import Form from "../Form/Form";
-import Input from "../Input/Index";
+import AuthenticationToggle from "../FormComponents/AuthenticationToggle/AuthenticationToggle";
+import Form from "../FormComponents/Form/Form";
+import Input from "../FormComponents/Input/Index";
+import Button from "../Shared/Button/Button";
 import styles from "./Login.module.sass";
-import Button from "../Button/Button";
-import AuthenticationToggle from "../AuthenticationToggle/AuthenticationToggle";
 
-import SvgPerson from "../../iconComponents/Icons/Person";
-import SvgLock from "../../iconComponents/Icons/Lock";
-import eyeSlashed from "../../assets/Icons/EyeSlashed.png";
 import eyeRegular from "../../assets/Icons/EyeRegular.png";
-import useForm from "../../hooks/useForm";
+import eyeSlashed from "../../assets/Icons/EyeSlashed.png";
 import { useNotificationContext } from "../../contexts/NotificationContext";
+import useForm from "../../hooks/useForm";
+import SvgLock from "../../iconComponents/Icons/Lock";
+import SvgPerson from "../../iconComponents/Icons/Person";
 
 export const Login = () => {
   const email = useForm("email");

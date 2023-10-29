@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "vite",
     "generate": "plop",
     "gen-icons": "npx  @svgr/cli src/assets --out-dir src/iconComponents --icon --typescript",
     "build": "tsc && vite build",

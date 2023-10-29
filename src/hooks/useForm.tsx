@@ -54,15 +54,15 @@ const useForm = (type: IRulesTypes, compr?: string): IUseForm => {
     },
     password: {
       validation: () => {
-        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}$/;
+        const regex = /^(?=.*[a-zA-Z]+.*)[0-9a-zA-Z;,@!]{6,}$/;
 
         if (value.length === 0) {
           setError("Required field");
           return false;
         } else if (!regex.test(value)) {
-          setError(
-            "Password must contain at least 4 characters, one uppercase letter, one lowercase letter, and one number."
-          );
+          if (value.length < 6)
+            setError("Password must contain at least 6 characters.");
+          else setError("Allowed special characters: ; , @ !");
           return false;
         } else {
           setError(null);

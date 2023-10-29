@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./NotificationRoot.module.sass";
-import removeAnimate from "../../../../utils/removeAnimate";
+import removeAnimate from "../../../../../utils/removeAnimate";
 interface INotificationRoot extends React.PropsWithChildren {
   style?: React.CSSProperties | undefined;
   time: number;

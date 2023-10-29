@@ -1,5 +1,5 @@
-import { useNotificationContext } from "../../contexts/NotificationContext";
-import removeAnimate from "../../utils/removeAnimate";
+import { useNotificationContext } from "../../../contexts/NotificationContext";
+import removeAnimate from "../../../utils/removeAnimate";
 import Notification from "../Notification/Index";
 import styles from "./NotificationsContainer.module.sass";
 

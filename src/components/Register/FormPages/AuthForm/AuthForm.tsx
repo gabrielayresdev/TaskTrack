@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./AuthForm.module.sass";
-import Form from "../../../Form/Form";
-import Input from "../../../Input/Index";
+import Form from "../../../FormComponents/Form/Form";
+import Input from "../../../FormComponents/Input/Index";
 import SvgPerson from "../../../../iconComponents/Icons/Person";
 import SvgLock from "../../../../iconComponents/Icons/Lock";
-import AuthenticationToggle from "../../../AuthenticationToggle/AuthenticationToggle";
-import Button from "../../../Button/Button";
+import AuthenticationToggle from "../../../FormComponents/AuthenticationToggle/AuthenticationToggle";
+import Button from "../../../Shared/Button/Button";
 import { useRegisterContext } from "../../../../contexts/RegisterContext";
 import useForm from "../../../../hooks/useForm";
 
