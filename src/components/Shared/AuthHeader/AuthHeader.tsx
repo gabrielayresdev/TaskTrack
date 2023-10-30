@@ -1,4 +1,4 @@
-import react from "react";
+//import React from "react";
 import styles from "./AuthHeader.module.sass";
 import logo from "/src/assets/Logo.png";
 

@@ -12,23 +12,52 @@ import useForm from "../../hooks/useForm";
 import SvgLock from "../../iconComponents/Icons/Lock";
 import SvgPerson from "../../iconComponents/Icons/Person";
 import AuthHeader from "../../components/Shared/AuthHeader/AuthHeader";
+import { getUserData, login } from "../../api";
+import { useUserContext } from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const email = useForm("email");
   const password = useForm("password");
-
-  const context = useNotificationContext();
-
+  const { createNotification } = useNotificationContext();
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
+  const { token, setToken, setUserData } = useUserContext();
 
-  function handleClick(): true {
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const { url, options } = getUserData(token);
+
+    async function request() {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const message = await response.text();
+        createNotification({ type: "Alert", message });
+      } else {
+        const json = await response.json();
+        setUserData((current) => {
+          return { ...current, name: json.name, email: json.username };
+        });
+        console.log("Mudando...");
+        navigate("/home");
+      }
+    }
+
+    if (token) request();
+  }, [token]);
+
+  async function handleClick() {
     if (password.validate() && email.validate()) {
-      return true;
-    } else {
-      context.createNotification({
-        type: "Alert",
-        message: "Alguns campos não foram preenchidos corretamente",
-      });
+      const { url, options } = login(email.value, password.value);
+
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const message = await response.text();
+        createNotification({ type: "Alert", message: message });
+      } else {
+        const token = await response.text();
+        setToken(token);
+      }
     }
 
     return true;

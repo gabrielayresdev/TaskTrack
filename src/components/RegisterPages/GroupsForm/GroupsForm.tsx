@@ -30,14 +30,27 @@ export const GroupsForm = () => {
     }
   }
 
-  function handleClick() {
+  async function handleClick() {
     if (groups.length === 0) {
       createNotification({
         type: "Alert",
         message: "You must choose at least one group",
       });
     } else {
-      register();
+      console.log("Registrando...");
+      const { response } = await register();
+      if (response.ok) {
+        createNotification({
+          type: "Success",
+          message: "User created with success.",
+        });
+      } else {
+        const message = await response.text();
+        createNotification({
+          type: "Alert",
+          message: message,
+        });
+      }
     }
   }
 
