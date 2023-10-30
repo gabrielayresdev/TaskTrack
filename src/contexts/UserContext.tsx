@@ -1,8 +1,5 @@
 import React from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { getUserData } from "../api";
-import { useNotificationContext } from "./NotificationContext";
-import { useNavigate } from "react-router-dom";
 
 interface IUserData {
   name: string;
@@ -14,6 +11,7 @@ interface IUserContext {
   setToken: React.Dispatch<React.SetStateAction<string>>;
   userData: IUserData | null;
   setUserData: React.Dispatch<React.SetStateAction<IUserData>>;
+  rememberUser: VoidFunction;
 }
 
 const UserContext = React.createContext<IUserContext | null>(null);
@@ -25,7 +23,7 @@ export function useUserContext() {
 }
 
 const UserContextProvider = ({ children }: React.PropsWithChildren) => {
-  const { state: token, setState: setToken } = useLocalStorage("token", "");
+  const [token, setToken] = React.useState<string>("");
   const [userData, setUserData] = React.useState<IUserData>(() => {
     return {
       name: "",
@@ -33,8 +31,14 @@ const UserContextProvider = ({ children }: React.PropsWithChildren) => {
     };
   });
 
+  function rememberUser() {
+    localStorage.setItem("token", token);
+  }
+
   return (
-    <UserContext.Provider value={{ token, setToken, userData, setUserData }}>
+    <UserContext.Provider
+      value={{ token, setToken, userData, setUserData, rememberUser }}
+    >
       {children}
     </UserContext.Provider>
   );

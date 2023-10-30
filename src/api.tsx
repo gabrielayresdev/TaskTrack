@@ -8,7 +8,9 @@ interface RequestParams {
 export const register = (
   email: string,
   password: string,
-  name: string
+  name: string,
+  cellphone: string,
+  groups: string[]
 ): RequestParams => {
   return {
     url: `${URL}/auth/register`,
@@ -21,6 +23,8 @@ export const register = (
         username: email,
         name: name,
         password: password,
+        telephone: cellphone,
+        groups: groups,
         role: "USER",
       }),
     },

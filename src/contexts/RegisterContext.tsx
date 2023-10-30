@@ -50,7 +50,9 @@ const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
     const { url, options } = userRegister(
       formValues.email.value,
       formValues.password.value,
-      formValues.name.value
+      formValues.name.value,
+      formValues.cellphone.value,
+      formValues.groups[0]
     );
 
     const response = await fetch(url, options);
