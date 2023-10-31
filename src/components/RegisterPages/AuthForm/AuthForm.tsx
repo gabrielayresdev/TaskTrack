@@ -60,8 +60,12 @@ export const AuthForm = () => {
           />
         </Input.Input>
         <div className={styles.checkbox}>
-          <Checkbox checked={passwordVisible} setChecked={setPasswordVisible} />
-          <label htmlFor="visible">Show password</label>
+          <Checkbox
+            checked={passwordVisible}
+            setChecked={setPasswordVisible}
+            id="visible"
+            label="Show password"
+          />
         </div>
 
         <Button text="Continue" onClick={handleClick} />

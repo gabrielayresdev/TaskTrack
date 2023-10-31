@@ -43,11 +43,8 @@ export const Login = () => {
       createAlertNotification(response);
     } else {
       const token = await response.text();
-      /* const userInformationFetched = await fetchUserInformation(token);
-      if (userInformationFetched) { */
       updateToken(token, remember);
       navigate("/home");
-      //}
     }
   }
 
@@ -97,8 +94,12 @@ export const Login = () => {
           </div>
         </Input.Input>
 
-        <Checkbox checked={remember} setChecked={setRemeber} />
-        <label>Lembrar usuário</label>
+        <Checkbox
+          checked={remember}
+          setChecked={setRemeber}
+          id="remember"
+          label="Remember me for 7 days"
+        />
 
         <Button text="Login with email" onClick={loginUser} />
       </Form>
