@@ -7,6 +7,7 @@ import SvgStudies from "../../../iconComponents/Icons/Studies";
 import Button from "../../Shared/Button/Button";
 import { useRegisterContext } from "../../../contexts/RegisterContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
+import { useNavigate } from "react-router-dom";
 
 export const GroupsForm = () => {
   const { GoPreviousPage, register } = useRegisterContext();
@@ -14,6 +15,7 @@ export const GroupsForm = () => {
   const { groups: groupsContext } = formValues;
   const [groups, setGroups] = groupsContext;
   const { createNotification } = useNotificationContext();
+  const navigate = useNavigate();
 
   function handleGroups(event: React.MouseEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
@@ -30,7 +32,7 @@ export const GroupsForm = () => {
     }
   }
 
-  async function handleClick() {
+  async function registerUser() {
     if (groups.length === 0) {
       createNotification({
         type: "Alert",
@@ -44,6 +46,7 @@ export const GroupsForm = () => {
           type: "Success",
           message: "User created with success.",
         });
+        navigate("/login");
       } else {
         const message = await response.text();
         createNotification({
@@ -84,7 +87,7 @@ export const GroupsForm = () => {
       </div>
       <Button
         text="Sign up"
-        onClick={handleClick}
+        onClick={registerUser}
         style={{ marginTop: "2rem" }}
       />
       <button className={styles.return} onClick={GoPreviousPage}>
