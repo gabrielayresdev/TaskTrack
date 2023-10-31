@@ -15,53 +15,48 @@ import AuthHeader from "../../components/Shared/AuthHeader/AuthHeader";
 import { getUserData, login } from "../../api";
 import { useUserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import Checkbox from "../../components/FormComponents/Checkbox/Checkbox";
 
 export const Login = () => {
   const email = useForm("email");
   const password = useForm("password");
   const { createNotification } = useNotificationContext();
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
-  const { token, setToken, setUserData } = useUserContext();
+  const { updateToken, userData } = useUserContext();
+  const [remember, setRemeber] = React.useState<boolean>(false);
 
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const { url, options } = getUserData(token);
-
-    async function request() {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        const message = await response.text();
-        createNotification({ type: "Alert", message });
-      } else {
-        const json = await response.json();
-        setUserData((current) => {
-          return { ...current, name: json.name, email: json.username };
-        });
-        console.log("Mudando...");
-        navigate("/home");
-      }
-    }
-
-    if (token) request();
-  }, [token]);
-
-  async function handleClick() {
-    if (password.validate() && email.validate()) {
-      const { url, options } = login(email.value, password.value);
-
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        const message = await response.text();
-        createNotification({ type: "Alert", message: message });
-      } else {
-        const token = await response.text();
-        setToken(token);
-      }
-    }
-
-    return true;
+  async function createAlertNotification(response: Response) {
+    const message = await response.text();
+    createNotification({ type: "Alert", message });
   }
+
+  async function loginUser() {
+    // If input is not valid, the function stop
+    if (!(password.validate() && email.validate())) return;
+
+    const { url, options } = login(email.value, password.value);
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      createAlertNotification(response);
+    } else {
+      const token = await response.text();
+      /* const userInformationFetched = await fetchUserInformation(token);
+      if (userInformationFetched) { */
+      updateToken(token, remember);
+      navigate("/home");
+      //}
+    }
+  }
+
+  React.useEffect(() => {
+    if (userData?.email.length && userData.email.length > 0) {
+      navigate("/home");
+    }
+  }, [userData, navigate]);
+
   return (
     <div className={styles.wrapper}>
       <AuthHeader />
@@ -102,7 +97,10 @@ export const Login = () => {
           </div>
         </Input.Input>
 
-        <Button text="Login with email" onClick={handleClick} />
+        <Checkbox checked={remember} setChecked={setRemeber} />
+        <label>Lembrar usuário</label>
+
+        <Button text="Login with email" onClick={loginUser} />
       </Form>
 
       <AuthenticationToggle

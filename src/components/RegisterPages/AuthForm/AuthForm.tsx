@@ -8,6 +8,7 @@ import AuthenticationToggle from "../../FormComponents/AuthenticationToggle/Auth
 import Button from "../../Shared/Button/Button";
 import { useRegisterContext } from "../../../contexts/RegisterContext";
 import useForm from "../../../hooks/useForm";
+import Checkbox from "../../FormComponents/Checkbox/Checkbox";
 
 export const AuthForm = () => {
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
@@ -59,12 +60,7 @@ export const AuthForm = () => {
           />
         </Input.Input>
         <div className={styles.checkbox}>
-          <input
-            type="checkbox"
-            id="visible"
-            name="visible"
-            onChange={({ target }) => setPasswordVisible(target.checked)}
-          />
+          <Checkbox checked={passwordVisible} setChecked={setPasswordVisible} />
           <label htmlFor="visible">Show password</label>
         </div>
 
