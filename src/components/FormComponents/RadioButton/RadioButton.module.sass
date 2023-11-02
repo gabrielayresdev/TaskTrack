@@ -2,14 +2,20 @@
     
 .wrapper 
     display: grid
-    grid-template-columns: repeat(2, auto) 1fr
+    grid-template-columns: auto 1fr auto
     align-items: center
     gap: .5rem
     
     width: 100%
-    padding: .5rem
+    padding: 0 .5rem
     border: 1px solid $c3
     border-radius: .75rem
+
+    cursor: pointer
+
+    label 
+        cursor: pointer
+        padding: .5rem
 
     input[type=radio] 
         --s: 1em     

@@ -12,7 +12,7 @@ import useForm from "../../hooks/useForm";
 import SvgLock from "../../iconComponents/Icons/Lock";
 import SvgPerson from "../../iconComponents/Icons/Person";
 import AuthHeader from "../../components/Shared/AuthHeader/AuthHeader";
-import { getUserData, login } from "../../api";
+import { login } from "../../api";
 import { useUserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import Checkbox from "../../components/FormComponents/Checkbox/Checkbox";

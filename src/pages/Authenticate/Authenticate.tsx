@@ -1,33 +1,24 @@
-/* import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Wave from "../../components/Wave/Wave";
 import styles from "./Authenticate.module.sass";
-import logo from "/src/assets/Logo.png";
-import Login from "../Login/Login";
-import Register from "../../components/Register/Register";
-import RegisterContextProvider from "../../contexts/RegisterContext";
 
-export const Authenticate = () => {
+export const Authenticate = ({ Form }: { Form: () => React.JSX.Element }) => {
   return (
-    <>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <img src={logo} alt="Logo from TaskTrack" />
-        </div>
-        <h1 className={styles.company_name}>
-          <span>Task</span>Track
-        </h1>
-        <div className={styles.steps}></div>
-      </header>
-      <BrowserRouter>
-        <RegisterContextProvider>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </RegisterContextProvider>
-      </BrowserRouter>
-    </>
+    <div className={styles.authorization}>
+      <div className={styles.welcome}>
+        <h2 className={styles.title}>
+          Welcome to <span>Task</span>Track
+        </h2>
+        <p className={styles.paragraph}>
+          Stay organized, boost productivity, and seize control of your day with
+          our intuitive to-do list platform
+        </p>
+      </div>
+      <div className={styles.authenticationForms}>
+        <Form />
+      </div>
+      <Wave className={styles.wave} />
+    </div>
   );
 };
 
 export default Authenticate;
- */

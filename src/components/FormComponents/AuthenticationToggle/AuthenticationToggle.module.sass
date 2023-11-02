@@ -1,4 +1,5 @@
 @import '/src/styles/variables/colors'
+@import '/src/styles/variables/breakpoints'
     
 .redirect 
     display: flex
@@ -10,8 +11,16 @@
     margin-top: auto
     margin-bottom: 5.125rem
 
+    flex: 1
+
     .line 
         color: $c3
 
     .anchor 
         color: $c4
+
+    @media ( min-width: $tablet )
+        justify-content: center
+        padding: 0
+        margin: 0
+        margin-bottom: 2rem
