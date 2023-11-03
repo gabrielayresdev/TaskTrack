@@ -2,11 +2,20 @@
 @import '/src/styles/variables/breakpoints'
     
 .authorization 
+    flex: 1
+    display: flex
+    flex-direction: column
     .welcome 
         display: none
+        z-index: 1
     
     .wave 
         display: none
+
+    .authenticationForms 
+        flex: 1
+        display: flex
+        flex-direction: column
 
     @media (min-width: $tablet)
         display: flex
@@ -22,8 +31,10 @@
         background: linear-gradient(90deg, rgba(142,197,252,1) 0%, rgba(224,195,252,1) 100%)
 
         .authenticationForms 
-            max-width: 430px
             flex: 1
+
+            width: 100%
+            height: 100%
 
             display: flex 
             flex-direction: column
@@ -51,17 +62,18 @@
 
         .welcome 
             display: block
-            max-width: 87ch
+            
 
             .title 
-                font-size: 8rem
+                font-size: 5rem
                 font-family: 'Righteous', sans-serif
-
+                max-width: 50ch
                 span 
                     color: $c5
             .paragraph 
                 font-family: 'Roboto Condensed', sans-serif
-                font-size: 2rem
+                font-size: 1rem
+                max-width: 40ch
         .authenticationForms 
             height: 100%
             width: 430px
@@ -72,4 +84,13 @@
             bottom: 0
 
             z-index: 0
-    
+
+    @media ( min-width: $desktopLarge )
+        .welcome 
+            max-width: 87ch
+
+            .title 
+                font-size: 8rem
+
+            .paragraph 
+                font-size: 2rem

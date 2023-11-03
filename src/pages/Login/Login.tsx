@@ -79,6 +79,7 @@ export const Login = () => {
           />
           <div
             style={{ cursor: "pointer", marginLeft: "auto", width: "1.5rem" }}
+            className={styles.revealPassword}
             onMouseOver={() => {
               setPasswordVisible(true);
             }}

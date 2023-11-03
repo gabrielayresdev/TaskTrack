@@ -1,6 +1,9 @@
 @import '/src/styles/variables/breakpoints'
     
 .wrapper 
+    flex: 1
+    display: flex
+    flex-direction: column
     .formWrapper 
         padding: 0 1.5rem
 
@@ -9,11 +12,19 @@
         display: flex
         flex-direction: column
         gap: 1.5rem
+
+        .reavealPassword 
+            display: none
     
     @media (min-width: $tablet)
         width: 100%
         flex: 1
         display: flex
         flex-direction: column
+
+        .formWrapper 
+            .revealPassword 
+                display: block
+                min-width: 16px
 
         
