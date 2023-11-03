@@ -8,6 +8,8 @@ import Button from "../../Shared/Button/Button";
 import { useRegisterContext } from "../../../contexts/RegisterContext";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { useNavigate } from "react-router-dom";
+import AuthenticationToggle from "../../FormComponents/AuthenticationToggle/AuthenticationToggle";
+import Form from "../../FormComponents/Form/Form";
 
 export const GroupsForm = () => {
   const { GoPreviousPage, register } = useRegisterContext();
@@ -58,42 +60,49 @@ export const GroupsForm = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.options}>
-        <RadioButton
-          value="Personal"
-          checked={groups.includes("Personal")}
-          handleClick={handleGroups}
-          id="Personal"
-          label="Personal"
-          Icon={SvgPerson}
+    <>
+      <Form className={styles.wrapper}>
+        <div className={styles.options}>
+          <RadioButton
+            value="Personal"
+            checked={groups.includes("Personal")}
+            handleClick={handleGroups}
+            id="Personal"
+            label="Personal"
+            Icon={SvgPerson}
+          />
+          <RadioButton
+            value="Work"
+            checked={groups.includes("Work")}
+            handleClick={handleGroups}
+            id="Work"
+            label="Work"
+            Icon={SvgWork}
+          />
+          <RadioButton
+            value="Studies"
+            checked={groups.includes("Studies")}
+            handleClick={handleGroups}
+            id="Studies"
+            label="Studies"
+            Icon={SvgStudies}
+          />
+        </div>
+        <Button
+          text="Sign up"
+          onClick={registerUser}
+          style={{ marginTop: "2rem" }}
         />
-        <RadioButton
-          value="Work"
-          checked={groups.includes("Work")}
-          handleClick={handleGroups}
-          id="Work"
-          label="Work"
-          Icon={SvgWork}
-        />
-        <RadioButton
-          value="Studies"
-          checked={groups.includes("Studies")}
-          handleClick={handleGroups}
-          id="Studies"
-          label="Studies"
-          Icon={SvgStudies}
-        />
-      </div>
-      <Button
-        text="Sign up"
-        onClick={registerUser}
-        style={{ marginTop: "2rem" }}
+        <button className={styles.return} onClick={GoPreviousPage}>
+          return
+        </button>
+      </Form>
+      <AuthenticationToggle
+        line="Already have an account?"
+        anchor="Login in your account"
+        href="/login"
       />
-      <button className={styles.return} onClick={GoPreviousPage}>
-        return
-      </button>
-    </div>
+    </>
   );
 };
 

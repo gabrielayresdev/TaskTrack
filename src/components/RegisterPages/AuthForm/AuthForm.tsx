@@ -24,7 +24,7 @@ export const AuthForm = () => {
 
   return (
     <>
-      <Form>
+      <Form style={{ flex: "1" }}>
         <Input.Input label="email" id="email" error={email.error}>
           <SvgPerson />
           <Input.Field

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./App.module.sass";
 import NotificationsContainer from "./components/Shared/NotificationsContainer/NotificationsContainer";
 import NotificationContextProvider from "./contexts/NotificationContext";

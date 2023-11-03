@@ -4,11 +4,14 @@ import styles from "./Form.module.sass";
 interface IForm extends PropsWithChildren {
   callback?: VoidFunction;
   className?: string;
+  style?: object;
 }
 
-export const Form = ({ children, className }: IForm) => {
+export const Form = ({ children, className, ...args }: IForm) => {
   return (
-    <div className={className ? className : `${styles.form}`}>{children}</div>
+    <form className={`${styles.form} ${className}`} {...args}>
+      {children}
+    </form>
   );
 };
 

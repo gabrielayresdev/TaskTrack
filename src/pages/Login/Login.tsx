@@ -58,7 +58,7 @@ export const Login = () => {
     <div className={styles.wrapper}>
       <AuthHeader />
       <Form className={styles.formWrapper}>
-        <Input.Input label="email" id="email" error={email.error}>
+        <Input.Input label="email" id="email">
           <SvgPerson />
           <Input.Field
             type="email"
@@ -68,7 +68,7 @@ export const Login = () => {
             placeholder="type your email"
           />
         </Input.Input>
-        <Input.Input label="password" id="password " error={password.error}>
+        <Input.Input label="password" id="password">
           <SvgLock />
           <Input.Field
             type={passwordVisible ? "text" : "password"}
