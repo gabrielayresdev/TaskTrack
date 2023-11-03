@@ -1,5 +1,4 @@
 import { useRegisterContext } from "../../../contexts/RegisterContext";
-import SvgLock from "../../../iconComponents/Icons/Lock";
 import SvgPerson from "../../../iconComponents/Icons/Person";
 import Button from "../../Shared/Button/Button";
 import Form from "../../FormComponents/Form/Form";
