@@ -6,6 +6,7 @@ import Form from "../../FormComponents/Form/Form";
 import Input from "../../FormComponents/Input/Index";
 import styles from "./PersonalForm.module.sass";
 import AuthenticationToggle from "../../FormComponents/AuthenticationToggle/AuthenticationToggle";
+import { Cellphone } from "../../../iconComponents/Icons";
 
 export const PersonalForm = () => {
   const { formValues, GoNextPage, GoPreviousPage } = useRegisterContext();
@@ -21,7 +22,7 @@ export const PersonalForm = () => {
     <>
       <Form>
         <Input.Input label="full name" id="name" error={name.error}>
-          <SvgPerson />
+          <Input.Icon Icon={SvgPerson} />
           <Input.Field
             value={name.value}
             handleChange={name.onChange}
@@ -30,7 +31,7 @@ export const PersonalForm = () => {
           />
         </Input.Input>
         <Input.Input label="cellphone" id="cellphone" error={cellphone.error}>
-          <SvgLock />
+          <Input.Icon Icon={Cellphone} />
           <Input.Field
             type={"tel"}
             value={cellphone.value}

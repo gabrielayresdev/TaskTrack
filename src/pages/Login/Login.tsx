@@ -4,9 +4,6 @@ import Form from "../../components/FormComponents/Form/Form";
 import Input from "../../components/FormComponents/Input/Index";
 import Button from "../../components/Shared/Button/Button";
 import styles from "./Login.module.sass";
-
-import eyeRegular from "../../assets/Icons/EyeRegular.png";
-import eyeSlashed from "../../assets/Icons/EyeSlashed.png";
 import { useNotificationContext } from "../../contexts/NotificationContext";
 import useForm from "../../hooks/useForm";
 import SvgLock from "../../iconComponents/Icons/Lock";
@@ -16,6 +13,7 @@ import { login } from "../../api";
 import { useUserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import Checkbox from "../../components/FormComponents/Checkbox/Checkbox";
+import { EyeRegular, EyeSlashRegular } from "../../iconComponents/Icons";
 
 export const Login = () => {
   const email = useForm("email");
@@ -59,7 +57,7 @@ export const Login = () => {
       <AuthHeader />
       <Form className={styles.formWrapper}>
         <Input.Input label="email" id="email">
-          <SvgPerson />
+          <Input.Icon Icon={SvgPerson} />
           <Input.Field
             type="email"
             value={email.value}
@@ -69,7 +67,7 @@ export const Login = () => {
           />
         </Input.Input>
         <Input.Input label="password" id="password">
-          <SvgLock />
+          <Input.Icon Icon={SvgLock} />
           <Input.Field
             type={passwordVisible ? "text" : "password"}
             value={password.value}
@@ -77,7 +75,8 @@ export const Login = () => {
             onBlur={() => password.validate()}
             placeholder="type your password"
           />
-          <div
+          <Input.Icon
+            Icon={passwordVisible ? EyeRegular : EyeSlashRegular}
             style={{ cursor: "pointer", marginLeft: "auto", width: "1.5rem" }}
             className={styles.revealPassword}
             onMouseOver={() => {
@@ -86,13 +85,7 @@ export const Login = () => {
             onMouseLeave={() => {
               setPasswordVisible(false);
             }}
-          >
-            {passwordVisible ? (
-              <img src={eyeRegular} />
-            ) : (
-              <img src={eyeSlashed} />
-            )}
-          </div>
+          />
         </Input.Input>
 
         <Checkbox

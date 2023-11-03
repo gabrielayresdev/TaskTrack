@@ -26,7 +26,7 @@ export const AuthForm = () => {
     <>
       <Form style={{ flex: "1" }}>
         <Input.Input label="email" id="email" error={email.error}>
-          <SvgPerson />
+          <Input.Icon Icon={SvgPerson} />
           <Input.Field
             type="email"
             value={email.value}
@@ -36,7 +36,7 @@ export const AuthForm = () => {
           />
         </Input.Input>
         <Input.Input label="password" id="password" error={password.error}>
-          <SvgLock />
+          <Input.Icon Icon={SvgLock} />
           <Input.Field
             type={passwordVisible ? "text" : "password"}
             value={password.value}
@@ -50,7 +50,7 @@ export const AuthForm = () => {
           id="passwordConfirm"
           error={confirmPassword.error}
         >
-          <SvgLock />
+          <Input.Icon Icon={SvgLock} />
           <Input.Field
             type={passwordVisible ? "text" : "password"}
             value={confirmPassword.value}
