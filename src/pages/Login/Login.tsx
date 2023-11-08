@@ -9,53 +9,48 @@ import useForm from "../../hooks/useForm";
 import SvgLock from "../../iconComponents/Icons/Lock";
 import SvgPerson from "../../iconComponents/Icons/Person";
 import AuthHeader from "../../components/Shared/AuthHeader/AuthHeader";
-import { login } from "../../api";
-import { useUserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import Checkbox from "../../components/FormComponents/Checkbox/Checkbox";
 import { EyeRegular, EyeSlashRegular } from "../../iconComponents/Icons";
+import { useAuthContext } from "../../contexts/Auth/AuthContext";
 
 export const Login = () => {
   const email = useForm("email");
   const password = useForm("password");
   const { createNotification } = useNotificationContext();
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
-  const { updateToken, userData } = useUserContext();
   const [remember, setRemeber] = React.useState<boolean>(false);
+  const auth = useAuthContext();
 
   const navigate = useNavigate();
 
-  async function createAlertNotification(response: Response) {
-    const message = await response.text();
-    createNotification({ type: "Alert", message });
-  }
-
-  async function loginUser() {
+  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     // If input is not valid, the function stop
     if (!(password.validate() && email.validate())) return;
 
-    const { url, options } = login(email.value, password.value);
-    const response = await fetch(url, options);
+    const isLogged = await auth.signin(email.value, password.value);
 
-    if (!response.ok) {
-      createAlertNotification(response);
+    if (!isLogged) {
+      createNotification({
+        type: "Alert",
+        message: "Email or password incorrect!",
+      });
     } else {
-      const token = await response.text();
-      updateToken(token, remember);
       navigate("/home");
     }
   }
 
   React.useEffect(() => {
-    if (userData?.email.length && userData.email.length > 0) {
+    if (auth.user) {
       navigate("/home");
     }
-  }, [userData, navigate]);
+  }, [auth.user, navigate]);
 
   return (
     <div className={styles.wrapper}>
       <AuthHeader />
-      <Form className={styles.formWrapper}>
+      <Form className={styles.formWrapper} onSubmit={handleLogin}>
         <Input.Input label="email" id="email">
           <Input.Icon Icon={SvgPerson} />
           <Input.Field
@@ -95,7 +90,7 @@ export const Login = () => {
           label="Remember me for 7 days"
         />
 
-        <Button text="Login with email" onClick={loginUser} />
+        <Button text="Login with email" />
       </Form>
 
       <AuthenticationToggle

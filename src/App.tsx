@@ -5,16 +5,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import { RegisterContextLayout } from "./contexts/RegisterContext";
-import UserContextProvider from "./contexts/UserContext";
 import Home from "./pages/Home/Home";
 import Authenticate from "./pages/Authenticate/Authenticate";
+import AuthContextProvider from "./contexts/Auth/AuthContext";
+import RequireAuth from "./contexts/Auth/RequireAuth";
 
 function App() {
   return (
     <NotificationContextProvider>
-      <UserContextProvider>
-        <div className={styles.app}>
-          <BrowserRouter>
+      <AuthContextProvider>
+        <BrowserRouter>
+          <div className={styles.app}>
             <Routes>
               <Route path="/login" element={<Authenticate Form={Login} />} />
               <Route element={<RegisterContextLayout />}>
@@ -23,12 +24,20 @@ function App() {
                   element={<Authenticate Form={Register} />}
                 />
               </Route>
-              <Route path="/home" element={<Home />} />
+              <Route
+                path="/home"
+                element={
+                  <RequireAuth>
+                    <Home />
+                  </RequireAuth>
+                }
+              />
             </Routes>
-          </BrowserRouter>
-          <NotificationsContainer />
-        </div>
-      </UserContextProvider>
+
+            <NotificationsContainer />
+          </div>
+        </BrowserRouter>
+      </AuthContextProvider>
     </NotificationContextProvider>
   );
 }

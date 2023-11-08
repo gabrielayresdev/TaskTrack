@@ -47,6 +47,18 @@ export const login = (email: string, password: string): RequestParams => {
   };
 };
 
+export const validate = (token: string): RequestParams => {
+  return {
+    url: `${URL}/auth/validate`,
+    options: {
+      method: "POST",
+      headers: {
+        Authorization: token,
+      },
+    },
+  };
+};
+
 export const getUserData = (token: string): RequestParams => {
   return {
     url: `${URL}/user/`,
