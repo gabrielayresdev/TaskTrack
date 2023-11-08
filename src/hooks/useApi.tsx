@@ -7,8 +7,8 @@ const useApi = () => {
     return await response.json();
   };
 
-  const signin = async (email: string, password: string) => {
-    const { url, options } = login(email, password);
+  const signin = async (email: string, password: string, remember: boolean) => {
+    const { url, options } = login(email, password, remember);
     const response = await fetch(url, options);
     return await response.json();
   };

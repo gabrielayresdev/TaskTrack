@@ -1,5 +1,6 @@
 import styles from "./Home.module.sass";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
+import Header from "../../components/Header/Header";
 
 export const Home = () => {
   const auth = useAuthContext();
@@ -8,8 +9,7 @@ export const Home = () => {
   if (user)
     return (
       <div className={styles.wrapper}>
-        Nome: {user.name}
-        Email: {user.email}
+        <Header />
       </div>
     );
   else return null;

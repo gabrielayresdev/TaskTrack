@@ -5,7 +5,11 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 
 type AuthContextType = {
   user: User | null;
-  signin: (email: string, password: string) => Promise<boolean>;
+  signin: (
+    email: string,
+    password: string,
+    remember: boolean
+  ) => Promise<boolean>;
   signout: VoidFunction;
 };
 
@@ -21,8 +25,9 @@ const AuthContextProvider = ({ children }: React.PropsWithChildren) => {
   const [user, setUser] = React.useState<User | null>(null);
   const api = useApi();
   const { state: token, setState: setToken } = useLocalStorage("token", "");
-  const signin = async (email: string, password: string) => {
-    const data = await api.signin(email, password);
+
+  const signin = async (email: string, password: string, remember: boolean) => {
+    const data = await api.signin(email, password, remember);
     if (data.user && data.token) {
       setUser(data.user);
       setToken(data.token);

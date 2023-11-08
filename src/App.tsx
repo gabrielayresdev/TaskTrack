@@ -17,6 +17,7 @@ function App() {
         <BrowserRouter>
           <div className={styles.app}>
             <Routes>
+              <Route path="/" element={<Authenticate Form={Login} />} />
               <Route path="/login" element={<Authenticate Form={Login} />} />
               <Route element={<RegisterContextLayout />}>
                 <Route

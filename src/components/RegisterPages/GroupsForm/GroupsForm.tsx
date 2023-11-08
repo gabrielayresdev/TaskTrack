@@ -34,8 +34,7 @@ export const GroupsForm = () => {
     }
   }
 
-  async function registerUser(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function registerUser() {
     if (groups.length === 0) {
       createNotification({
         type: "Alert",
@@ -62,7 +61,7 @@ export const GroupsForm = () => {
 
   return (
     <>
-      <Form className={styles.wrapper} onSubmit={registerUser}>
+      <Form className={styles.wrapper}>
         <div className={styles.options}>
           <RadioButton
             value="Personal"
@@ -89,7 +88,11 @@ export const GroupsForm = () => {
             Icon={SvgStudies}
           />
         </div>
-        <Button text="Sign up" style={{ marginTop: "2rem" }} />
+        <Button
+          text="Sign up"
+          style={{ marginTop: "2rem" }}
+          onClick={registerUser}
+        />
         <button className={styles.return} onClick={GoPreviousPage}>
           return
         </button>

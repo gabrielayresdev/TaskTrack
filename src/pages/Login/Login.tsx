@@ -24,12 +24,11 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleLogin() {
     // If input is not valid, the function stop
     if (!(password.validate() && email.validate())) return;
 
-    const isLogged = await auth.signin(email.value, password.value);
+    const isLogged = await auth.signin(email.value, password.value, remember);
 
     if (!isLogged) {
       createNotification({
@@ -50,7 +49,7 @@ export const Login = () => {
   return (
     <div className={styles.wrapper}>
       <AuthHeader />
-      <Form className={styles.formWrapper} onSubmit={handleLogin}>
+      <Form className={styles.formWrapper}>
         <Input.Input label="email" id="email">
           <Input.Icon Icon={SvgPerson} />
           <Input.Field
@@ -90,7 +89,7 @@ export const Login = () => {
           label="Remember me for 7 days"
         />
 
-        <Button text="Login with email" />
+        <Button text="Login with email" onClick={handleLogin} />
       </Form>
 
       <AuthenticationToggle

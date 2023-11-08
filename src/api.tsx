@@ -31,7 +31,11 @@ export const register = (
   };
 };
 
-export const login = (email: string, password: string): RequestParams => {
+export const login = (
+  email: string,
+  password: string,
+  remember: boolean
+): RequestParams => {
   return {
     url: `${URL}/auth/login`,
     options: {
@@ -42,6 +46,7 @@ export const login = (email: string, password: string): RequestParams => {
       body: JSON.stringify({
         username: email,
         password: password,
+        remember: remember,
       }),
     },
   };

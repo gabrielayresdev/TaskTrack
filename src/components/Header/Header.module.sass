@@ -1,0 +1,35 @@
+.header 
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-direction: row
+
+    padding: 1rem 5%
+
+    border-bottom: 1px solid #ddd
+
+    width: 100vw
+
+    .welcome 
+        font-size: 1.25rem
+
+        span 
+            text-decoration: underline
+
+    .leaveButton 
+        all: unset
+        text-transform: uppercase
+        cursor: pointer
+
+        &::after
+            content: ""
+            width: 0
+            height: 2px
+            background: #000
+            display: block
+            transition: all .3s
+
+        &:hover::after
+            width: 100%
+
+            

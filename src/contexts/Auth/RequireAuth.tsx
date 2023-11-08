@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./AuthContext";
 
 const RequireAuth = ({ children }: React.PropsWithChildren) => {
-  const navigate = useNavigate();
   const auth = useAuthContext();
+  const navigate = useNavigate();
 
-  if (!auth.user) {
-    navigate("/login");
-  }
+  // Will navigate to login since auth.user is always null when page is rendered, but login will send back to home as soon as token is validated
+  React.useEffect(() => {
+    if (!auth.user) navigate("/login");
+  }, [auth.user, navigate]);
 
   return <>{children}</>;
 };
