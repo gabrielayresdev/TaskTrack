@@ -18,6 +18,7 @@ Funcionalidades adicionais:
 - Pesquisar por tarefas
 - CRUD de grupos de tarefas
 - Filtro por grupos
+- Ordenação de tarefas
 
 Tecnologias usadas:
 
@@ -25,5 +26,3 @@ Tecnologias usadas:
 - TypeScript
 - Sass
 - Jest
-- React Testing Library
-- StoryBook
