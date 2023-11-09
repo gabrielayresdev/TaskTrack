@@ -1,8 +1,9 @@
 import React from "react";
 import useForm, { IUseForm } from "../hooks/useForm";
 import usePagination from "../hooks/usePagination";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { register as userRegister } from "../api";
+import { useNotificationContext } from "./NotificationContext";
 
 const RegisterContext = React.createContext<IRegisterContext | null>(null);
 
@@ -45,6 +46,8 @@ const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
     groups: React.useState<string[]>([]),
   };
   const { page, GoNextPage, GoPreviousPage } = usePagination(3);
+  const { createNotification } = useNotificationContext();
+  const navigate = useNavigate();
 
   async function register() {
     const { url, options } = userRegister(
@@ -56,6 +59,17 @@ const RegisterContextProvider = ({ children }: React.PropsWithChildren) => {
     );
 
     const response = await fetch(url, options);
+
+    if (!response.ok) {
+      const message = await response.text();
+      createNotification({ type: "Alert", message: message });
+    } else {
+      createNotification({
+        type: "Success",
+        message: "User created with success.",
+      });
+      navigate("/login");
+    }
 
     return { response };
   }

@@ -1,7 +1,8 @@
 import React from "react";
 import { User } from "../../types/User";
-import useApi from "../../hooks/useApi";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { login, validate } from "../../api";
+import { useNotificationContext } from "../NotificationContext";
 
 type AuthContextType = {
   user: User | null;
@@ -23,17 +24,30 @@ export const useAuthContext = () => {
 
 const AuthContextProvider = ({ children }: React.PropsWithChildren) => {
   const [user, setUser] = React.useState<User | null>(null);
-  const api = useApi();
   const { state: token, setState: setToken } = useLocalStorage("token", "");
+  const { createNotification } = useNotificationContext();
 
   const signin = async (email: string, password: string, remember: boolean) => {
-    const data = await api.signin(email, password, remember);
-    if (data.user && data.token) {
+    console.log(email);
+    const { url, options } = login(email, password, remember);
+    const response = await fetch(url, options);
+
+    let data: { user: User; token: string } | null = null;
+    if (!response.ok) {
+      const message = await response.text();
+      createNotification({ type: "Alert", message: message });
+      return false;
+      //return { response, data };
+    }
+    data = await response.json();
+
+    if (data?.user && data.token) {
       setUser(data.user);
       setToken(data.token);
-      return true;
+      return false;
     }
-    return false;
+    //return { response, data };
+    return true;
   };
 
   const signout = () => {
@@ -41,17 +55,29 @@ const AuthContextProvider = ({ children }: React.PropsWithChildren) => {
     setToken("");
   };
 
-  React.useEffect(() => {
-    const validateToken = async () => {
-      if (token) {
-        const data = await api.validateToken(token);
-        if (data.user) {
-          setUser(data.user);
-        }
+  const validateToken = React.useRef<VoidFunction>();
+  validateToken.current = async () => {
+    if (token) {
+      const { url, options } = validate(token);
+      const response = await fetch(url, options);
+
+      let data: { user: User } | null = null;
+      if (!response.ok) {
+        createNotification({ type: "Alert", message: "Your session expired" });
       }
-    };
-    validateToken();
-  }, [token, api]);
+
+      data = await response.json();
+      if (data?.user) {
+        setUser(data.user);
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    if (validateToken.current) {
+      validateToken.current();
+    }
+  }, [token]);
 
   return (
     <AuthContext.Provider value={{ user, signin, signout }}>

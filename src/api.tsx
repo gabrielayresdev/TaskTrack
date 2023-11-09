@@ -63,15 +63,3 @@ export const validate = (token: string): RequestParams => {
     },
   };
 };
-
-export const getUserData = (token: string): RequestParams => {
-  return {
-    url: `${URL}/user/`,
-    options: {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    },
-  };
-};

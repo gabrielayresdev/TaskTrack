@@ -17,7 +17,6 @@ import { useAuthContext } from "../../contexts/Auth/AuthContext";
 export const Login = () => {
   const email = useForm("email");
   const password = useForm("password");
-  const { createNotification } = useNotificationContext();
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
   const [remember, setRemeber] = React.useState<boolean>(false);
   const auth = useAuthContext();
@@ -30,12 +29,7 @@ export const Login = () => {
 
     const isLogged = await auth.signin(email.value, password.value, remember);
 
-    if (!isLogged) {
-      createNotification({
-        type: "Alert",
-        message: "Email or password incorrect!",
-      });
-    } else {
+    if (isLogged) {
       navigate("/home");
     }
   }
