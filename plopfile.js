@@ -14,16 +14,6 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
         path: "src/components/{{titleCase name}}/{{titleCase name}}.module.sass",
         templateFile: "plop/templates/styles.module.sass.hbs",
       },
-      {
-        type: "add",
-        path: "src/components/{{titleCase name}}/{{titleCase name}}.stories.tsx",
-        templateFile: "plop/templates/stories.tsx.hbs",
-      },
-      {
-        type: "add",
-        path: "src/components/{{titleCase name}}/{{titleCase name}}.test.tsx",
-        templateFile: "plop/templates/test.tsx.hbs",
-      },
     ],
   });
 
