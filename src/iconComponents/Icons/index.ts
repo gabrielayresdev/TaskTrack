@@ -2,6 +2,7 @@ export { default as Cellphone } from "./Cellphone";
 export { default as EyeRegular } from "./EyeRegular";
 export { default as EyeSlashRegular } from "./EyeSlashRegular";
 export { default as Lock } from "./Lock";
+export { default as PenToSquare } from "./PenToSquare";
 export { default as Person } from "./Person";
 export { default as Studies } from "./Studies";
 export { default as Success } from "./Success";

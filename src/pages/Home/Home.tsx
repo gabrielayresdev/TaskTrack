@@ -1,6 +1,7 @@
 import styles from "./Home.module.sass";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import Header from "../../components/Header/Header";
+import CreateTaskButton from "../../components/CreateTaskButton/CreateTaskButton";
 
 export const Home = () => {
   const auth = useAuthContext();
@@ -8,8 +9,9 @@ export const Home = () => {
 
   if (user)
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.home}>
         <Header />
+        <CreateTaskButton />
       </div>
     );
   else return null;
