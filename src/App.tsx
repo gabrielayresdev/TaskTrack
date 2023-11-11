@@ -9,34 +9,38 @@ import Home from "./pages/Home/Home";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import AuthContextProvider from "./contexts/Auth/AuthContext";
 import RequireAuth from "./contexts/Auth/RequireAuth";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function App() {
   return (
     <NotificationContextProvider>
       <AuthContextProvider>
         <BrowserRouter>
-          <div className={styles.app}>
-            <Routes>
-              <Route path="/" element={<Authenticate Form={Login} />} />
-              <Route path="/login" element={<Authenticate Form={Login} />} />
-              <Route element={<RegisterContextLayout />}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <div className={styles.app}>
+              <Routes>
+                <Route path="/" element={<Authenticate Form={Login} />} />
+                <Route path="/login" element={<Authenticate Form={Login} />} />
+                <Route element={<RegisterContextLayout />}>
+                  <Route
+                    path="/register"
+                    element={<Authenticate Form={Register} />}
+                  />
+                </Route>
                 <Route
-                  path="/register"
-                  element={<Authenticate Form={Register} />}
+                  path="/home"
+                  element={
+                    <RequireAuth>
+                      <Home />
+                    </RequireAuth>
+                  }
                 />
-              </Route>
-              <Route
-                path="/home"
-                element={
-                  <RequireAuth>
-                    <Home />
-                  </RequireAuth>
-                }
-              />
-            </Routes>
+              </Routes>
 
-            <NotificationsContainer />
-          </div>
+              <NotificationsContainer />
+            </div>
+          </LocalizationProvider>
         </BrowserRouter>
       </AuthContextProvider>
     </NotificationContextProvider>
