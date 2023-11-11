@@ -21,7 +21,7 @@ export const Modal = ({ children, showModal, setShowModal }: ModalType) => {
     visible: {
       translateY: 0,
       opacity: 1,
-      transition: { delay: 0.3 },
+      transition: { delay: 0.05 },
     },
   };
 
@@ -31,7 +31,7 @@ export const Modal = ({ children, showModal, setShowModal }: ModalType) => {
   }, [showModal]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait" onExitComplete={() => setShowModal(false)}>
       {showModal ? (
         <motion.div
           className={styles.container}
