@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import CreateTaskButton from "../../components/CreateTaskButton/CreateTaskButton";
 import Modal from "../../components/Modal/Modal";
 import TaskForm from "../../components/TaskForm/TaskForm";
+import { DateCalendar } from "@mui/x-date-pickers";
 
 export const Home = () => {
   const auth = useAuthContext();
@@ -15,6 +16,7 @@ export const Home = () => {
     return (
       <div className={styles.home}>
         <Header />
+        <DateCalendar />
         <CreateTaskButton onClick={() => setShowModal(true)} />
         <Modal showModal={showModal} setShowModal={setShowModal}>
           <TaskForm />

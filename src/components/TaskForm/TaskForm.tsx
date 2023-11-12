@@ -5,12 +5,18 @@ import { ReactComponent as Minus } from "/src/assets/Icons/SquareMinus.svg";
 import { ReactComponent as Xmark } from "/src/assets/Icons/XMark.svg";
 import { ReactComponent as Plus } from "/src/assets/Icons/Plus.svg";
 import Popup from "../Popup/Popup";
+import DatePicker from "../DatePicker/DatePicker";
+import dayjs, { Dayjs } from "dayjs";
+import { DateCalendar } from "@mui/x-date-pickers";
 
 export const TaskForm = () => {
   const [title, setTitle] = React.useState<string>("New Task");
   const [description, setDescription] = React.useState<string>("");
   const [group, setGroup] = React.useState<string>("Personal");
   const [priority, setPriority] = React.useState<string>("Low");
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs());
+
+  const [showPopup, setShowPopup] = React.useState(false);
 
   return (
     <div className={styles.form}>
@@ -37,9 +43,15 @@ export const TaskForm = () => {
       />
 
       <div className={styles.popups}>
-        <span>Date</span>
-        <span>{group}</span>
-        <span>{priority}</span>
+        <span className={styles.popupItem} onClick={() => setShowPopup(true)}>
+          Date
+        </span>
+        <span className={styles.popupItem}>{group}</span>
+        <span className={styles.popupItem}>{priority}</span>
+
+        <Popup show={showPopup} setShow={setShowPopup}>
+          <DatePicker date={date} setDate={setDate} />
+        </Popup>
       </div>
       <div className={styles.description}>
         <Plus className={styles.plus} />
