@@ -4,6 +4,7 @@ import { ReactComponent as Check } from "/src/assets/Icons/Check.svg";
 import { ReactComponent as Minus } from "/src/assets/Icons/SquareMinus.svg";
 import { ReactComponent as Xmark } from "/src/assets/Icons/XMark.svg";
 import { ReactComponent as Plus } from "/src/assets/Icons/Plus.svg";
+import Popup from "../Popup/Popup";
 
 export const TaskForm = () => {
   const [title, setTitle] = React.useState<string>("New Task");
