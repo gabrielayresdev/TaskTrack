@@ -29,7 +29,8 @@ export const GroupOption = ({ group }: GroupPickerInterface) => {
 
   return (
     <div className={styles.option} key={groupName}>
-      <span className={styles.icon}>{icon}</span> {group.toLowerCase()}
+      <span className={`${styles.icon} ${styles[groupName]}`}>{icon}</span>
+      {group.toLowerCase()}
     </div>
   );
 };
