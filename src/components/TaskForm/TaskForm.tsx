@@ -10,12 +10,15 @@ import dayjs, { Dayjs } from "dayjs";
 import GroupPicker from "../GroupPicker/GroupPicker";
 import GroupOption from "../GroupOption/GroupOption";
 import PriorityPicker from "../PriorityPicker/PriorityPicker";
+import PriorityOption from "../PriorityOption/PriorityOption";
 
 export const TaskForm = () => {
   const [title, setTitle] = React.useState<string>("New Task");
   const [description, setDescription] = React.useState<string>("");
   const [group, setGroup] = React.useState<string>("Personal");
-  const [priority, setPriority] = React.useState<string>("Low");
+  const [priority, setPriority] = React.useState<"high" | "medium" | "low">(
+    "low"
+  );
   const [date, setDate] = React.useState<Dayjs | null>(dayjs());
 
   const [showPopup, setShowPopup] = React.useState(false);
@@ -27,7 +30,7 @@ export const TaskForm = () => {
   const popupContents = {
     date: <DatePicker date={date} setDate={setDate} />,
     group: <GroupPicker setGroup={setGroup} />,
-    priority: <PriorityPicker />,
+    priority: <PriorityPicker setPriority={setPriority} />,
   };
 
   const openPopup = (type: "date" | "group" | "priority") => {
@@ -66,7 +69,12 @@ export const TaskForm = () => {
         <span className={styles.popupItem} onClick={() => openPopup("group")}>
           <GroupOption group={group} />
         </span>
-        <span className={styles.popupItem}>{priority}</span>
+        <span
+          className={styles.popupItem}
+          onClick={() => openPopup("priority")}
+        >
+          <PriorityOption priority={priority} />
+        </span>
 
         <Popup show={showPopup} setShow={setShowPopup}>
           {popupContents[popupContent]}

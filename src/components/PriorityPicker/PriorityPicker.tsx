@@ -1,11 +1,25 @@
-import React from 'react' 
-import styles from './PriorityPicker.module.sass'
+import React from "react";
+import styles from "./PriorityPicker.module.sass";
+import PriorityOption from "../PriorityOption/PriorityOption";
 
-export const PriorityPicker = () => { 
-    return (
-        <div className={styles.wrapper}>
-        </div>
-    ) 
-} 
+interface PriorityPickerInterface {
+  setPriority: React.Dispatch<React.SetStateAction<"high" | "medium" | "low">>;
+}
 
-export default PriorityPicker
+export const PriorityPicker = ({ setPriority }: PriorityPickerInterface) => {
+  return (
+    <div className={styles.priorityPicker}>
+      <div onClick={() => setPriority("high")}>
+        <PriorityOption priority="high" />
+      </div>
+      <div onClick={() => setPriority("medium")}>
+        <PriorityOption priority="medium" />
+      </div>
+      <div onClick={() => setPriority("low")}>
+        <PriorityOption priority="low" />
+      </div>
+    </div>
+  );
+};
+
+export default PriorityPicker;
