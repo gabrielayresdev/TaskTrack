@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./GroupOption.module.sass";
 import { ReactComponent as Person } from "/src/assets/Icons/person.svg";
 import { ReactComponent as Work } from "/src/assets/Icons/Work.svg";

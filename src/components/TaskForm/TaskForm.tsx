@@ -4,6 +4,7 @@ import { ReactComponent as Check } from "/src/assets/Icons/Check.svg";
 import { ReactComponent as Minus } from "/src/assets/Icons/SquareMinus.svg";
 import { ReactComponent as Xmark } from "/src/assets/Icons/XMark.svg";
 import { ReactComponent as Plus } from "/src/assets/Icons/Plus.svg";
+import { ReactComponent as Calendar } from "/src/assets/Icons/Calendar.svg";
 import Popup from "../Popup/Popup";
 import DatePicker from "../DatePicker/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
@@ -11,11 +12,18 @@ import GroupPicker from "../GroupPicker/GroupPicker";
 import GroupOption from "../GroupOption/GroupOption";
 import PriorityPicker from "../PriorityPicker/PriorityPicker";
 import PriorityOption from "../PriorityOption/PriorityOption";
+import { useAuthContext } from "../../contexts/Auth/AuthContext";
+import { formatDate } from "../../utils/formatDate";
 
 export const TaskForm = () => {
+  const auth = useAuthContext();
+  const { user } = auth;
   const [title, setTitle] = React.useState<string>("New Task");
   const [description, setDescription] = React.useState<string>("");
-  const [group, setGroup] = React.useState<string>("Personal");
+  const [group, setGroup] = React.useState<string>(() => {
+    if (user?.groups[0]) return user?.groups[0];
+    else return "personal";
+  });
   const [priority, setPriority] = React.useState<"high" | "medium" | "low">(
     "low"
   );
@@ -41,7 +49,7 @@ export const TaskForm = () => {
   return (
     <div className={styles.form}>
       <div className={styles.header}>
-        <p>{"Gabriel Ayres > Personal"}</p>
+        <p>{`${user?.name} > ${group}`}</p>
         <div className={styles.menu}>
           <div className={styles.icon}>
             <Check />
@@ -64,7 +72,7 @@ export const TaskForm = () => {
 
       <div className={styles.popups}>
         <span className={styles.popupItem} onClick={() => openPopup("date")}>
-          Date
+          <Calendar /> {date ? formatDate(date) : "Date"}
         </span>
         <span className={styles.popupItem} onClick={() => openPopup("group")}>
           <GroupOption group={group} />
