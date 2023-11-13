@@ -7,8 +7,9 @@ import { ReactComponent as Plus } from "/src/assets/Icons/Plus.svg";
 import Popup from "../Popup/Popup";
 import DatePicker from "../DatePicker/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
-import { DateCalendar } from "@mui/x-date-pickers";
 import GroupPicker from "../GroupPicker/GroupPicker";
+import GroupOption from "../GroupOption/GroupOption";
+import PriorityPicker from "../PriorityPicker/PriorityPicker";
 
 export const TaskForm = () => {
   const [title, setTitle] = React.useState<string>("New Task");
@@ -19,16 +20,17 @@ export const TaskForm = () => {
 
   const [showPopup, setShowPopup] = React.useState(false);
 
-  const [popupContent, setPopupContent] = React.useState<"date" | "group">(
-    "date"
-  );
+  const [popupContent, setPopupContent] = React.useState<
+    "date" | "group" | "priority"
+  >("date");
 
   const popupContents = {
     date: <DatePicker date={date} setDate={setDate} />,
-    group: <GroupPicker />,
+    group: <GroupPicker setGroup={setGroup} />,
+    priority: <PriorityPicker />,
   };
 
-  const openPopup = (type: "date" | "group") => {
+  const openPopup = (type: "date" | "group" | "priority") => {
     setPopupContent(type);
     setShowPopup(true);
   };
@@ -62,7 +64,7 @@ export const TaskForm = () => {
           Date
         </span>
         <span className={styles.popupItem} onClick={() => openPopup("group")}>
-          {group}
+          <GroupOption group={group} />
         </span>
         <span className={styles.popupItem}>{priority}</span>
 
