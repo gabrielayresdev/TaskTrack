@@ -8,6 +8,7 @@ import Popup from "../Popup/Popup";
 import DatePicker from "../DatePicker/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { DateCalendar } from "@mui/x-date-pickers";
+import GroupPicker from "../GroupPicker/GroupPicker";
 
 export const TaskForm = () => {
   const [title, setTitle] = React.useState<string>("New Task");
@@ -17,6 +18,20 @@ export const TaskForm = () => {
   const [date, setDate] = React.useState<Dayjs | null>(dayjs());
 
   const [showPopup, setShowPopup] = React.useState(false);
+
+  const [popupContent, setPopupContent] = React.useState<"date" | "group">(
+    "date"
+  );
+
+  const popupContents = {
+    date: <DatePicker date={date} setDate={setDate} />,
+    group: <GroupPicker />,
+  };
+
+  const openPopup = (type: "date" | "group") => {
+    setPopupContent(type);
+    setShowPopup(true);
+  };
 
   return (
     <div className={styles.form}>
@@ -43,14 +58,16 @@ export const TaskForm = () => {
       />
 
       <div className={styles.popups}>
-        <span className={styles.popupItem} onClick={() => setShowPopup(true)}>
+        <span className={styles.popupItem} onClick={() => openPopup("date")}>
           Date
         </span>
-        <span className={styles.popupItem}>{group}</span>
+        <span className={styles.popupItem} onClick={() => openPopup("group")}>
+          {group}
+        </span>
         <span className={styles.popupItem}>{priority}</span>
 
         <Popup show={showPopup} setShow={setShowPopup}>
-          <DatePicker date={date} setDate={setDate} />
+          {popupContents[popupContent]}
         </Popup>
       </div>
       <div className={styles.description}>
