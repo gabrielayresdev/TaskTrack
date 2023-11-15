@@ -14,6 +14,8 @@ import PriorityPicker from "../PriorityPicker/PriorityPicker";
 import PriorityOption from "../PriorityOption/PriorityOption";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { formatDate } from "../../utils/formatDate";
+import { useNotificationContext } from "../../contexts/NotificationContext";
+import { createTask } from "../../api";
 
 export const TaskForm = () => {
   const auth = useAuthContext();
@@ -41,10 +43,36 @@ export const TaskForm = () => {
     priority: <PriorityPicker setPriority={setPriority} />,
   };
 
+  const { createNotification } = useNotificationContext();
+
   const openPopup = (type: "date" | "group" | "priority") => {
     setPopupContent(type);
     setShowPopup(true);
   };
+
+  async function saveTask() {
+    if (!title) setTitle("New Task");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      auth.signout();
+      createNotification({ type: "Alert", message: "Your session expired" });
+      return;
+    }
+    const endAt = date ? date.toJSON() : null;
+    const { url, options } = createTask(
+      token,
+      description,
+      title,
+      endAt,
+      priority,
+      group
+    );
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      const json = await response.json();
+      createNotification({ type: "Alert", message: json });
+    }
+  }
 
   return (
     <div className={styles.form}>
@@ -99,7 +127,9 @@ export const TaskForm = () => {
           onChange={({ target }) => setDescription(target.value)}
         ></textarea>
       </div>
-      <button className={styles.saveTask}>Create</button>
+      <button className={styles.saveTask} onClick={saveTask}>
+        Create
+      </button>
     </div>
   );
 };

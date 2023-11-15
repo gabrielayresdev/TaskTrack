@@ -63,3 +63,30 @@ export const validate = (token: string): RequestParams => {
     },
   };
 };
+
+export const createTask = (
+  token: string,
+  description: string | null,
+  title: string | null,
+  endAt: string | null,
+  priority: "high" | "medium" | "low",
+  taskGroup: string
+): RequestParams => {
+  return {
+    url: `${URL}/task/create`,
+    options: {
+      method: "POST",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        endAt,
+        priority,
+        taskGroup,
+      }),
+    },
+  };
+};
