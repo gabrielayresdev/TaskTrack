@@ -49,24 +49,24 @@ export const GroupsForm = () => {
       <Form className={styles.wrapper}>
         <div className={styles.options}>
           <RadioButton
-            value="Personal"
-            checked={groups.includes("Personal")}
+            value="personal"
+            checked={groups.includes("personal")}
             handleClick={handleGroups}
             id="Personal"
             label="Personal"
             Icon={SvgPerson}
           />
           <RadioButton
-            value="Work"
-            checked={groups.includes("Work")}
+            value="work"
+            checked={groups.includes("work")}
             handleClick={handleGroups}
             id="Work"
             label="Work"
             Icon={SvgWork}
           />
           <RadioButton
-            value="Studies"
-            checked={groups.includes("Studies")}
+            value="studies"
+            checked={groups.includes("studies")}
             handleClick={handleGroups}
             id="Studies"
             label="Studies"

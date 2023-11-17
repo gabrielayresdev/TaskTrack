@@ -8,14 +8,39 @@
     background: #FAFAFA
     border: 1px solid #EEEEEE
 
+    .content 
+        display: flex
+        align-items: center
+        gap: 1rem
+        
+        padding: 1.125rem 1rem
+
+        .data 
+            display: flex
+            flex-direction: column
+            gap: .5rem
+            flex: 1
+
+            .title 
+                font-size: 1.25rem
+                font-weight: 500
+                grid-column: 1 / -1
+
+            .secondaryData
+                display: flex
+                align-items: center
+                gap: 1rem
+
+
+
     .detail
         height: 100%
         width: 100%
-        background: green
+        background: #40F99B
 
-        .high 
-            background: red
-        .medium
-            background: orange
-        .low 
-            background: green
+        &.high 
+            background: #F76961
+        &.medium
+            background: #FCAB10
+        &.low 
+            background: #40F99B
