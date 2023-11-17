@@ -45,7 +45,7 @@ export const Home = () => {
 
         <CreateTaskButton onClick={() => setShowModal(true)} />
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <TaskForm />
+          <TaskForm closeModal={() => setShowModal(false)} />
         </Modal>
       </div>
     );

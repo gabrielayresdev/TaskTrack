@@ -17,7 +17,7 @@ import { formatDate } from "../../utils/formatDate";
 import { useNotificationContext } from "../../contexts/NotificationContext";
 import { createTask } from "../../api";
 
-export const TaskForm = () => {
+export const TaskForm = ({ closeModal }: { closeModal?: VoidFunction }) => {
   const auth = useAuthContext();
   const { user } = auth;
   const [title, setTitle] = React.useState<string>("New Task");
@@ -72,6 +72,7 @@ export const TaskForm = () => {
       const json = await response.json();
       createNotification({ type: "Alert", message: json });
     }
+    if (closeModal) closeModal();
   }
 
   return (
