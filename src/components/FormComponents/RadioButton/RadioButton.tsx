@@ -1,16 +1,16 @@
 import styles from "./RadioButton.module.sass";
 
 interface IRadioButton extends React.InputHTMLAttributes<HTMLInputElement> {
-  value: string;
+  value?: string;
   checked: boolean;
   handleClick: (event: React.MouseEvent<HTMLInputElement>) => void;
-  id: string;
-  label: string;
+  id?: string;
+  label?: string;
   Icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 }
 
 export const RadioButton = ({
-  value,
+  value = "",
   checked,
   handleClick,
   id,

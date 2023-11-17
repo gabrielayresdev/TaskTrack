@@ -8,16 +8,8 @@ import TaskForm from "../../components/TaskForm/TaskForm";
 import useFetch from "../../hooks/useFetch";
 import { listTask } from "../../api";
 import { useNotificationContext } from "../../contexts/NotificationContext";
-
-interface TaskInterface {
-  id: string;
-  title: string;
-  description: string;
-  group: string[];
-  priority: "high" | "medium" | "low";
-  taskGroup: string;
-  endAt: string;
-}
+import { TaskInterface } from "../../types/Task";
+import Task from "../../components/Task/Task";
 
 export const Home = () => {
   const auth = useAuthContext();
@@ -40,14 +32,16 @@ export const Home = () => {
 
   const { url, options } = listTask(token.current);
 
-  const { data, loading, error } = useFetch<TaskInterface[]>(url, options);
+  const { data } = useFetch<TaskInterface[]>(url, options);
 
   if (user)
     return (
       <div className={styles.home}>
         <Header />
 
-        {data ? data.map((task) => task.title) : null}
+        <div className={styles.tasks}>
+          {data ? data.map((task) => <Task task={task} />) : null}
+        </div>
 
         <CreateTaskButton onClick={() => setShowModal(true)} />
         <Modal showModal={showModal} setShowModal={setShowModal}>
