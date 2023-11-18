@@ -7,29 +7,39 @@ import { ReactComponent as Plus } from "/src/assets/Icons/Plus.svg";
 import { ReactComponent as Calendar } from "/src/assets/Icons/Calendar.svg";
 import Popup from "../Popup/Popup";
 import DatePicker from "../DatePicker/DatePicker";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import GroupPicker from "../GroupPicker/GroupPicker";
 import GroupOption from "../GroupOption/GroupOption";
 import PriorityPicker from "../PriorityPicker/PriorityPicker";
 import PriorityOption from "../PriorityOption/PriorityOption";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
-import { formatDate } from "../../utils/formatDate";
+import { from_Dayjs_To_MMDDYYYY } from "../../utils/formatDate";
 import { useNotificationContext } from "../../contexts/NotificationContext";
 import { createTask } from "../../api";
+import { TaskInterface } from "../../types/Task";
 
-export const TaskForm = ({ closeModal }: { closeModal?: VoidFunction }) => {
+interface TaskFormInterface {
+  closeModal?: VoidFunction;
+  currentTask?: TaskInterface;
+  onClick: VoidFunction;
+}
+
+export const TaskForm = ({ closeModal, currentTask }: TaskFormInterface) => {
   const auth = useAuthContext();
   const { user } = auth;
-  const [title, setTitle] = React.useState<string>("New Task");
-  const [description, setDescription] = React.useState<string>("");
-  const [group, setGroup] = React.useState<string>(() => {
-    if (user?.groups[0]) return user?.groups[0];
-    else return "personal";
+  const [task, setTask] = React.useState<TaskInterface>(() => {
+    if (currentTask) return currentTask;
+    return {
+      id: "",
+      title: "New Task",
+      description: "",
+      endAt: dayjs().toJSON(),
+      taskGroup: user?.groups[0] ? user.groups[0] : "personal",
+      priority: "low",
+      checked: false,
+    };
   });
-  const [priority, setPriority] = React.useState<"high" | "medium" | "low">(
-    "low"
-  );
-  const [date, setDate] = React.useState<Dayjs | null>(dayjs());
+  const { title, description, endAt, taskGroup, priority } = task;
 
   const [showPopup, setShowPopup] = React.useState(false);
 
@@ -38,9 +48,22 @@ export const TaskForm = ({ closeModal }: { closeModal?: VoidFunction }) => {
   >("date");
 
   const popupContents = {
-    date: <DatePicker date={date} setDate={setDate} />,
-    group: <GroupPicker setGroup={setGroup} />,
-    priority: <PriorityPicker setPriority={setPriority} />,
+    date: (
+      <DatePicker
+        date={task.endAt}
+        setDate={(date) => setTask({ ...task, endAt: date.toJSON() })}
+      />
+    ),
+    group: (
+      <GroupPicker
+        setGroup={(group) => setTask({ ...task, taskGroup: group })}
+      />
+    ),
+    priority: (
+      <PriorityPicker
+        setPriority={(priority) => setTask({ ...task, priority: priority })}
+      />
+    ),
   };
 
   const { createNotification } = useNotificationContext();
@@ -51,21 +74,20 @@ export const TaskForm = ({ closeModal }: { closeModal?: VoidFunction }) => {
   };
 
   async function saveTask() {
-    if (!title) setTitle("New Task");
+    if (!title) setTask({ ...task, title: "New Task" });
     const token = localStorage.getItem("token");
     if (!token) {
       auth.signout();
       createNotification({ type: "Alert", message: "Your session expired" });
       return;
     }
-    const endAt = date ? date.toJSON() : null;
     const { url, options } = createTask(
       token,
       description,
       title,
       endAt,
       priority,
-      group
+      taskGroup
     );
     const response = await fetch(url, options);
     if (!response.ok) {
@@ -78,7 +100,7 @@ export const TaskForm = ({ closeModal }: { closeModal?: VoidFunction }) => {
   return (
     <div className={styles.form}>
       <div className={styles.header}>
-        <p>{`${user?.name} > ${group}`}</p>
+        <p>{`${user?.name} > ${taskGroup}`}</p>
         <div className={styles.menu}>
           <div className={styles.icon}>
             <Check />
@@ -95,16 +117,16 @@ export const TaskForm = ({ closeModal }: { closeModal?: VoidFunction }) => {
       <input
         type="text"
         value={title}
-        onChange={({ target }) => setTitle(target.value)}
+        onChange={({ target }) => setTask({ ...task, title: target.value })}
         className={styles.title}
       />
 
       <div className={styles.popups}>
         <span className={styles.popupItem} onClick={() => openPopup("date")}>
-          <Calendar /> {date ? formatDate(date) : "Date"}
+          <Calendar /> {from_Dayjs_To_MMDDYYYY(dayjs(endAt))}
         </span>
         <span className={styles.popupItem} onClick={() => openPopup("group")}>
-          <GroupOption group={group} />
+          <GroupOption group={taskGroup} />
         </span>
         <span
           className={styles.popupItem}
@@ -125,7 +147,9 @@ export const TaskForm = ({ closeModal }: { closeModal?: VoidFunction }) => {
           className={styles.textarea}
           placeholder="Describe your task"
           value={description}
-          onChange={({ target }) => setDescription(target.value)}
+          onChange={({ target }) =>
+            setTask({ ...task, description: target.value })
+          }
         ></textarea>
       </div>
       <button className={styles.saveTask} onClick={saveTask}>

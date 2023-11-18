@@ -3,7 +3,7 @@ import styles from "./PriorityPicker.module.sass";
 import PriorityOption from "../PriorityOption/PriorityOption";
 
 interface PriorityPickerInterface {
-  setPriority: React.Dispatch<React.SetStateAction<"high" | "medium" | "low">>;
+  setPriority: (priority: "high" | "medium" | "low") => void;
 }
 
 export const PriorityPicker = ({ setPriority }: PriorityPickerInterface) => {

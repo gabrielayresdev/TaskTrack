@@ -6,6 +6,7 @@ import CreateTaskButton from "../../components/CreateTaskButton/CreateTaskButton
 import Modal from "../../components/Modal/Modal";
 import TaskForm from "../../components/TaskForm/TaskForm";
 import TaskList from "../../components/TaskList/TaskList";
+import dayjs, { Dayjs } from "dayjs";
 
 export const Home = () => {
   const auth = useAuthContext();

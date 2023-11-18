@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./GroupPicker.module.sass";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import GroupOption from "../GroupOption/GroupOption";
@@ -6,7 +5,7 @@ import GroupOption from "../GroupOption/GroupOption";
 export const GroupPicker = ({
   setGroup,
 }: {
-  setGroup: React.Dispatch<React.SetStateAction<string>>;
+  setGroup: (group: string) => void;
 }) => {
   const auth = useAuthContext();
   const { user } = auth;
