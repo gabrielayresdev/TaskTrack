@@ -101,3 +101,15 @@ export const listTask = (token: string): RequestParams => {
     },
   };
 };
+
+export const deleteTask = (token: string, id: string): RequestParams => {
+  return {
+    url: `${URL}/task/remove/${id}`,
+    options: {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    },
+  };
+};

@@ -17,12 +17,15 @@ import { from_Dayjs_To_MMDDYYYY } from "../../utils/formatDate";
 import { TaskInterface } from "../../types/Task";
 import { useTaskContext } from "../../contexts/TasksContext";
 import { useModalContext } from "../../contexts/ModalContext";
+import { deleteTask } from "../../api";
+import { useNotificationContext } from "../../contexts/NotificationContext";
 
 interface TaskFormInterface {
   request: (task: TaskInterface) => void;
 }
 
 export const TaskForm = ({ request }: TaskFormInterface) => {
+  // Task and User
   const auth = useAuthContext();
   const { user } = auth;
   const { currentTask, setCurrentTask } = useTaskContext();
@@ -40,12 +43,13 @@ export const TaskForm = ({ request }: TaskFormInterface) => {
   });
   const { title, description, endAt, taskGroup, priority } = task;
 
-  const [showPopup, setShowPopup] = React.useState(false);
+  const { createNotification } = useNotificationContext();
 
+  // POPUP
+  const [showPopup, setShowPopup] = React.useState(false);
   const [popupContent, setPopupContent] = React.useState<
     "date" | "group" | "priority"
   >("date");
-
   const popupContents = {
     date: (
       <DatePicker
@@ -64,7 +68,6 @@ export const TaskForm = ({ request }: TaskFormInterface) => {
       />
     ),
   };
-
   const openPopup = (type: "date" | "group" | "priority") => {
     setPopupContent(type);
     setShowPopup(true);
@@ -75,8 +78,8 @@ export const TaskForm = ({ request }: TaskFormInterface) => {
 
   async function saveTask() {
     if (!title) setTask({ ...task, title: "New Task" });
-    request(task);
-    await recoverTasks();
+    await request(task);
+    recoverTasks();
     setShowModal(false);
   }
 
@@ -85,6 +88,30 @@ export const TaskForm = ({ request }: TaskFormInterface) => {
       setCurrentTask(null);
     };
   }, [setCurrentTask]);
+
+  async function removeTask(id: string) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      auth.signout();
+      createNotification({ type: "Alert", message: "Your session expired" });
+      return;
+    }
+
+    const { url, options } = deleteTask(token, id);
+
+    const response = await fetch(url, options);
+
+    if (!response.ok)
+      createNotification({
+        type: "Alert",
+        message: "It was not possible to delete your task!",
+      });
+    else
+      createNotification({
+        type: "Success",
+        message: "Task deleted successfully",
+      });
+  }
 
   return (
     <div className={styles.form}>
@@ -95,7 +122,14 @@ export const TaskForm = ({ request }: TaskFormInterface) => {
             <Check />
           </div>
           {task.id ? (
-            <div className={styles.icon}>
+            <div
+              className={styles.icon}
+              onClick={async () => {
+                await removeTask(task.id);
+                recoverTasks();
+                setShowModal(false);
+              }}
+            >
               <Minus />
             </div>
           ) : null}

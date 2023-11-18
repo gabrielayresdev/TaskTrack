@@ -56,7 +56,6 @@ const AuthContextProvider = ({ children }: React.PropsWithChildren) => {
 
   const validateToken = React.useRef<VoidFunction>();
   validateToken.current = async () => {
-    console.log(token);
     if (token) {
       const { url, options } = validate(token);
       const response = await fetch(url, options);

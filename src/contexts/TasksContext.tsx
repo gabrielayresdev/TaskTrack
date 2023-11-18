@@ -27,17 +27,14 @@ const TaskContextProvider = ({ children }: React.PropsWithChildren) => {
 
   async function recoverTasks() {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (!token) {
       createNotification({ type: "Alert", message: "Your session expired!" });
       return;
     }
     const { url, options } = listTask(token);
 
-    console.log(url + options);
     try {
       const response = await fetch(url, options);
-      console.log(response);
       if (!response.ok) {
         const json = await response.json();
         throw new Error(`Error ${response.status}: ${json}`);
@@ -54,7 +51,6 @@ const TaskContextProvider = ({ children }: React.PropsWithChildren) => {
     }
   }
 
-  console.log(currentTask);
   return (
     <TaskContext.Provider
       value={{ tasks, recoverTasks, currentTask, setCurrentTask }}
