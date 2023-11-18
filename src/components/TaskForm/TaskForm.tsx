@@ -17,6 +17,7 @@ import { from_Dayjs_To_MMDDYYYY } from "../../utils/formatDate";
 import { useNotificationContext } from "../../contexts/NotificationContext";
 import { createTask } from "../../api";
 import { TaskInterface } from "../../types/Task";
+import { useTaskContext } from "../../contexts/TasksContext";
 
 interface TaskFormInterface {
   closeModal?: VoidFunction;
@@ -73,6 +74,8 @@ export const TaskForm = ({ closeModal, currentTask }: TaskFormInterface) => {
     setShowPopup(true);
   };
 
+  const { recoverTasks } = useTaskContext();
+
   async function saveTask() {
     if (!title) setTask({ ...task, title: "New Task" });
     const token = localStorage.getItem("token");
@@ -94,6 +97,7 @@ export const TaskForm = ({ closeModal, currentTask }: TaskFormInterface) => {
       const json = await response.json();
       createNotification({ type: "Alert", message: json });
     }
+    recoverTasks();
     if (closeModal) closeModal();
   }
 
