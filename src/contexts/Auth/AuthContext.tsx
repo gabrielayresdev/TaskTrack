@@ -28,7 +28,6 @@ const AuthContextProvider = ({ children }: React.PropsWithChildren) => {
   const { createNotification } = useNotificationContext();
 
   const signin = async (email: string, password: string, remember: boolean) => {
-    console.log(email);
     const { url, options } = login(email, password, remember);
     const response = await fetch(url, options);
 

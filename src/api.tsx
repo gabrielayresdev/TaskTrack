@@ -91,7 +91,6 @@ export const createTask = (
   };
 };
 export const listTask = (token: string): RequestParams => {
-  console.log(token);
   return {
     url: `${URL}/task/list`,
     options: {

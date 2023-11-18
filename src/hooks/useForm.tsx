@@ -72,7 +72,6 @@ const useForm = (type: IRulesTypes, compr?: string): IUseForm => {
     },
     confirmPassword: {
       validation: () => {
-        console.log("Comparing", value, "to", compr);
         if (value.length === 0) {
           setError("Required field");
           return false;

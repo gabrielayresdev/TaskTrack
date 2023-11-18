@@ -3,6 +3,7 @@ import styles from "./Task.module.sass";
 import { TaskInterface } from "../../types/Task";
 import RoundedCheckbox from "../RoundedCheckbox/RoundedCheckbox";
 import GroupOption from "../GroupOption/GroupOption";
+import { from_ISO8601_To_MMMDDYYYY } from "../../utils/formatDate";
 
 export const Task = ({ task }: { task: TaskInterface }) => {
   const [checked, setChecked] = React.useState(false);
@@ -13,7 +14,7 @@ export const Task = ({ task }: { task: TaskInterface }) => {
         <div className={styles.data}>
           <h3 className={styles.title}>{task.title}</h3>
           <div className={styles.secondaryData}>
-            <p>{task.endAt}</p>
+            <p>{from_ISO8601_To_MMMDDYYYY(task.endAt)}</p>
             <GroupOption group={task.taskGroup} />
           </div>
         </div>

@@ -11,6 +11,7 @@ import AuthContextProvider from "./contexts/Auth/AuthContext";
 import RequireAuth from "./contexts/Auth/RequireAuth";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import TaskContextProvider from "./contexts/TasksContext";
 
 function App() {
   return (
@@ -32,7 +33,9 @@ function App() {
                   path="/home"
                   element={
                     <RequireAuth>
-                      <Home />
+                      <TaskContextProvider>
+                        <Home />
+                      </TaskContextProvider>
                     </RequireAuth>
                   }
                 />

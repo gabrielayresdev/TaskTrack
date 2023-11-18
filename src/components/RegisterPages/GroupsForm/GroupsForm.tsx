@@ -39,7 +39,6 @@ export const GroupsForm = () => {
         message: "You must choose at least one group",
       });
     } else {
-      console.log("Registrando...");
       register();
     }
   }
