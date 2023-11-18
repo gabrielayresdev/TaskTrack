@@ -14,20 +14,18 @@ import PriorityPicker from "../PriorityPicker/PriorityPicker";
 import PriorityOption from "../PriorityOption/PriorityOption";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { from_Dayjs_To_MMDDYYYY } from "../../utils/formatDate";
-import { useNotificationContext } from "../../contexts/NotificationContext";
-import { createTask } from "../../api";
 import { TaskInterface } from "../../types/Task";
 import { useTaskContext } from "../../contexts/TasksContext";
+import { useModalContext } from "../../contexts/ModalContext";
 
 interface TaskFormInterface {
-  closeModal?: VoidFunction;
-  currentTask?: TaskInterface;
-  onClick: VoidFunction;
+  request: (task: TaskInterface) => void;
 }
 
-export const TaskForm = ({ closeModal, currentTask }: TaskFormInterface) => {
+export const TaskForm = ({ request }: TaskFormInterface) => {
   const auth = useAuthContext();
   const { user } = auth;
+  const { currentTask, setCurrentTask } = useTaskContext();
   const [task, setTask] = React.useState<TaskInterface>(() => {
     if (currentTask) return currentTask;
     return {
@@ -67,39 +65,26 @@ export const TaskForm = ({ closeModal, currentTask }: TaskFormInterface) => {
     ),
   };
 
-  const { createNotification } = useNotificationContext();
-
   const openPopup = (type: "date" | "group" | "priority") => {
     setPopupContent(type);
     setShowPopup(true);
   };
 
   const { recoverTasks } = useTaskContext();
+  const { setShowModal } = useModalContext();
 
   async function saveTask() {
     if (!title) setTask({ ...task, title: "New Task" });
-    const token = localStorage.getItem("token");
-    if (!token) {
-      auth.signout();
-      createNotification({ type: "Alert", message: "Your session expired" });
-      return;
-    }
-    const { url, options } = createTask(
-      token,
-      description,
-      title,
-      endAt,
-      priority,
-      taskGroup
-    );
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      const json = await response.json();
-      createNotification({ type: "Alert", message: json });
-    }
-    recoverTasks();
-    if (closeModal) closeModal();
+    request(task);
+    await recoverTasks();
+    setShowModal(false);
   }
+
+  React.useEffect(() => {
+    return () => {
+      setCurrentTask(null);
+    };
+  }, [setCurrentTask]);
 
   return (
     <div className={styles.form}>
@@ -109,10 +94,12 @@ export const TaskForm = ({ closeModal, currentTask }: TaskFormInterface) => {
           <div className={styles.icon}>
             <Check />
           </div>
-          <div className={styles.icon}>
-            <Minus />
-          </div>
-          <div className={styles.icon}>
+          {task.id ? (
+            <div className={styles.icon}>
+              <Minus />
+            </div>
+          ) : null}
+          <div className={styles.icon} onClick={() => setShowModal(false)}>
             <Xmark />
           </div>
         </div>

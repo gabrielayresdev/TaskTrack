@@ -2,17 +2,30 @@ import React from "react";
 import styles from "./TaskList.module.sass";
 import { useTaskContext } from "../../contexts/TasksContext";
 import Task from "../Task/Task";
+import { useModalContext } from "../../contexts/ModalContext";
 
 export const TaskList = () => {
-  const { tasks, recoverTasks } = useTaskContext();
+  const { tasks, recoverTasks, setCurrentTask } = useTaskContext();
+  const { setShowModal } = useModalContext();
 
   React.useEffect(() => {
     recoverTasks();
-  });
+  }, []);
 
   return (
     <div className={styles.tasks}>
-      {tasks ? tasks.map((task) => <Task task={task} />) : null}
+      {tasks
+        ? tasks.map((task) => (
+            <div
+              onClick={() => {
+                setShowModal(true);
+                setCurrentTask(task);
+              }}
+            >
+              <Task task={task} />
+            </div>
+          ))
+        : null}
     </div>
   );
 };

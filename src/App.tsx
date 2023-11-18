@@ -12,6 +12,7 @@ import RequireAuth from "./contexts/Auth/RequireAuth";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TaskContextProvider from "./contexts/TasksContext";
+import ModalContextProvider from "./contexts/ModalContext";
 
 function App() {
   return (
@@ -34,7 +35,9 @@ function App() {
                   element={
                     <RequireAuth>
                       <TaskContextProvider>
-                        <Home />
+                        <ModalContextProvider>
+                          <Home />
+                        </ModalContextProvider>
                       </TaskContextProvider>
                     </RequireAuth>
                   }
