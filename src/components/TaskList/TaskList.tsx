@@ -6,10 +6,11 @@ import { useModalContext } from "../../contexts/ModalContext";
 
 export const TaskList = () => {
   const { tasks, recoverTasks, setCurrentTask } = useTaskContext();
+  const recoverTasksRef = React.useRef(recoverTasks);
   const { setShowModal } = useModalContext();
 
   React.useEffect(() => {
-    recoverTasks();
+    recoverTasksRef.current();
   }, []);
 
   return (

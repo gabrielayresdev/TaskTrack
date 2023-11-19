@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./PriorityPicker.module.sass";
 import PriorityOption from "../../PriorityOption/PriorityOption";
 

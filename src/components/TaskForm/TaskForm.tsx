@@ -12,7 +12,6 @@ import { useNotificationContext } from "../../contexts/NotificationContext";
 import { createTask, updateTask } from "../../api";
 
 export const TaskForm = () => {
-  // Task and User
   const auth = useAuthContext();
   const { user } = auth;
   const { currentTask, setCurrentTask } = useTaskContext();

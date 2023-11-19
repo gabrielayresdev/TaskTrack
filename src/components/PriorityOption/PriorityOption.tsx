@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./PriorityOption.module.sass";
 import { ReactComponent as Check } from "/src/assets/Icons/Checked.svg";
 

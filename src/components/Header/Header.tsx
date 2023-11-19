@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Header.module.sass";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 

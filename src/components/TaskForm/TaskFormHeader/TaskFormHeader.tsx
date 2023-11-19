@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./TaskFormHeader.module.sass";
 import { useNotificationContext } from "../../../contexts/NotificationContext";
 import { deleteTask } from "../../../api";
