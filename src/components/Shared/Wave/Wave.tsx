@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Wave.module.sass";
 import wave from "/src/assets/wave.svg";
 
