@@ -8,12 +8,10 @@ import { useTaskContext } from "../../contexts/TasksContext";
 import { useModalContext } from "../../contexts/ModalContext";
 import TaskPickers from "../TaskPickers/TaskFormPickers";
 import TaskFormHeader from "../TaskFormHeader/TaskFormHeader";
+import { useNotificationContext } from "../../contexts/NotificationContext";
+import { createTask, updateTask } from "../../api";
 
-interface TaskFormInterface {
-  request: (task: TaskInterface) => void;
-}
-
-export const TaskForm = ({ request }: TaskFormInterface) => {
+export const TaskForm = () => {
   // Task and User
   const auth = useAuthContext();
   const { user } = auth;
@@ -30,14 +28,32 @@ export const TaskForm = ({ request }: TaskFormInterface) => {
       checked: false,
     };
   });
-  const { title, description } = task;
+  const { id, title, description, endAt, priority, taskGroup } = task;
 
   const { recoverTasks } = useTaskContext();
   const { setShowModal } = useModalContext();
+  const { createNotification } = useNotificationContext();
 
-  async function saveTask() {
+  async function handleSubmit() {
     if (!title) setTask({ ...task, title: "New Task" });
-    await request(task);
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      auth.signout();
+      createNotification({ type: "Alert", message: "Your session expired" });
+      return;
+    }
+
+    const { url, options } = task.id
+      ? updateTask(token, id, description, title, endAt, priority, taskGroup)
+      : createTask(token, description, title, endAt, priority, taskGroup);
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      const json = await response.json();
+      createNotification({ type: "Alert", message: json });
+    }
+
     recoverTasks();
     setShowModal(false);
   }
@@ -74,7 +90,7 @@ export const TaskForm = ({ request }: TaskFormInterface) => {
           }
         ></textarea>
       </div>
-      <button className={styles.saveTask} onClick={saveTask}>
+      <button className={styles.saveTask} onClick={handleSubmit}>
         {task.id ? "Update" : "Create"}
       </button>
     </div>

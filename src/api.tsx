@@ -90,6 +90,35 @@ export const createTask = (
     },
   };
 };
+
+export const updateTask = (
+  token: string,
+  id: string,
+  description: string | null,
+  title: string | null,
+  endAt: string | null,
+  priority: "high" | "medium" | "low",
+  taskGroup: string
+): RequestParams => {
+  return {
+    url: `${URL}/task/update/${id}`,
+    options: {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        endAt,
+        priority,
+        taskGroup,
+      }),
+    },
+  };
+};
+
 export const listTask = (token: string): RequestParams => {
   return {
     url: `${URL}/task/list`,
