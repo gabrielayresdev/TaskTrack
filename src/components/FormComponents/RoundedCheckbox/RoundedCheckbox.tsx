@@ -16,7 +16,7 @@ export const RoundedCheckbox = ({
       className={styles.checkbox}
       type="checkbox"
       checked={checked}
-      onClick={() => setChecked(!checked)}
+      onChange={() => setChecked(!checked)}
     />
   );
 };

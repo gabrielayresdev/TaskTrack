@@ -1,6 +1,6 @@
 import styles from "./GroupPicker.module.sass";
-import { useAuthContext } from "../../contexts/Auth/AuthContext";
-import GroupOption from "../GroupOption/GroupOption";
+import { useAuthContext } from "../../../contexts/Auth/AuthContext";
+import GroupOption from "../../GroupOption/GroupOption";
 
 export const GroupPicker = ({
   setGroup,

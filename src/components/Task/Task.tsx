@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Task.module.sass";
 import { TaskInterface } from "../../types/Task";
-import RoundedCheckbox from "../RoundedCheckbox/RoundedCheckbox";
+import RoundedCheckbox from "../FormComponents/RoundedCheckbox/RoundedCheckbox";
 import GroupOption from "../GroupOption/GroupOption";
 import { from_ISO8601_To_MMMDDYYYY } from "../../utils/formatDate";
 

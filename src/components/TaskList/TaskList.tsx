@@ -17,6 +17,7 @@ export const TaskList = () => {
       {tasks
         ? tasks.map((task) => (
             <div
+              key={task.id}
               onClick={() => {
                 setShowModal(true);
                 setCurrentTask(task);

@@ -22,7 +22,7 @@ export const Checkbox = ({
         id={id}
         name={name ? name : id}
         checked={checked}
-        onClick={() => setChecked(!checked)}
+        onChange={() => setChecked(!checked)}
       />
       <label htmlFor={id}>{label}</label>
     </div>

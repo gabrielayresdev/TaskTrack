@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./PriorityPicker.module.sass";
-import PriorityOption from "../PriorityOption/PriorityOption";
+import PriorityOption from "../../PriorityOption/PriorityOption";
 
 interface PriorityPickerInterface {
   setPriority: (priority: "high" | "medium" | "low") => void;

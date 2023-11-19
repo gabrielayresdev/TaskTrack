@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "./TaskFormPickers.module.sass";
 import DatePicker from "../DatePicker/DatePicker";
-import { from_Dayjs_To_MMDDYYYY } from "../../utils/formatDate";
+import { from_Dayjs_To_MMDDYYYY } from "../../../utils/formatDate";
 import dayjs from "dayjs";
 import GroupPicker from "../GroupPicker/GroupPicker";
 import PriorityPicker from "../PriorityPicker/PriorityPicker";
 import { ReactComponent as Calendar } from "/src/assets/Icons/Calendar.svg";
-import GroupOption from "../GroupOption/GroupOption";
-import PriorityOption from "../PriorityOption/PriorityOption";
-import Popup from "../Popup/Popup";
-import { TaskInterface } from "../../types/Task";
+import GroupOption from "../../GroupOption/GroupOption";
+import PriorityOption from "../../PriorityOption/PriorityOption";
+import Popup from "../../Popup/Popup";
+import { TaskInterface } from "../../../types/Task";
 
 interface TaskFormPickers {
   task: TaskInterface;

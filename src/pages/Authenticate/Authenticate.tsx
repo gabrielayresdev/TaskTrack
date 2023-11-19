@@ -1,4 +1,4 @@
-import Wave from "../../components/Wave/Wave";
+import Wave from "../../components/Shared/Wave/Wave";
 import styles from "./Authenticate.module.sass";
 
 export const Authenticate = ({ Form }: { Form: () => React.JSX.Element }) => {

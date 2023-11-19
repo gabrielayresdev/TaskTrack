@@ -2,7 +2,7 @@ import styles from "./Home.module.sass";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import Header from "../../components/Header/Header";
 import CreateTaskButton from "../../components/CreateTaskButton/CreateTaskButton";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/Shared/Modal/Modal";
 import TaskForm from "../../components/TaskForm/TaskForm";
 import TaskList from "../../components/TaskList/TaskList";
 import { useModalContext } from "../../contexts/ModalContext";

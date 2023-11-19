@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./TaskFormHeader.module.sass";
-import { useNotificationContext } from "../../contexts/NotificationContext";
-import { deleteTask } from "../../api";
+import { useNotificationContext } from "../../../contexts/NotificationContext";
+import { deleteTask } from "../../../api";
 import { ReactComponent as Check } from "/src/assets/Icons/Check.svg";
-import { useTaskContext } from "../../contexts/TasksContext";
-import { useModalContext } from "../../contexts/ModalContext";
+import { useTaskContext } from "../../../contexts/TasksContext";
+import { useModalContext } from "../../../contexts/ModalContext";
 import { ReactComponent as Xmark } from "/src/assets/Icons/XMark.svg";
 import { ReactComponent as Minus } from "/src/assets/Icons/SquareMinus.svg";
-import { User } from "../../types/User";
-import { TaskInterface } from "../../types/Task";
+import { User } from "../../../types/User";
+import { TaskInterface } from "../../../types/Task";
 
 interface TaskFormHeaderInterface {
   user: User;

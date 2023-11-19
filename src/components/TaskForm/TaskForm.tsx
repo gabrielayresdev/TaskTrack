@@ -6,8 +6,8 @@ import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { TaskInterface } from "../../types/Task";
 import { useTaskContext } from "../../contexts/TasksContext";
 import { useModalContext } from "../../contexts/ModalContext";
-import TaskPickers from "../TaskPickers/TaskFormPickers";
-import TaskFormHeader from "../TaskFormHeader/TaskFormHeader";
+import TaskPickers from "./TaskFormPickers/TaskFormPickers";
+import TaskFormHeader from "./TaskFormHeader/TaskFormHeader";
 import { useNotificationContext } from "../../contexts/NotificationContext";
 import { createTask, updateTask } from "../../api";
 
