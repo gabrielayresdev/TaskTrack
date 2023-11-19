@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080";
+const URL = "https://tasktrack-gabrielayresdev.onrender.com";
 
 interface RequestParams {
   url: string;
