@@ -1,5 +1,7 @@
 const URL = "https://tasktrack-gabrielayresdev.onrender.com";
 
+console.log(URL);
+
 interface RequestParams {
   url: string;
   options: RequestInit | undefined;
