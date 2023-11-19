@@ -1,4 +1,3 @@
-import * as React from "react";
 import type { SVGProps } from "react";
 const SvgPenToSquare = (props: SVGProps<SVGSVGElement>) => (
   <svg
