@@ -14,7 +14,11 @@ export const GroupPicker = ({
     <div className={styles.groupPicker}>
       {user?.groups.map((group) => {
         return (
-          <div onClick={() => setGroup(group)}>
+          <div
+            key={group}
+            className={styles.option}
+            onClick={() => setGroup(group)}
+          >
             <GroupOption group={group} key={group} />
           </div>
         );

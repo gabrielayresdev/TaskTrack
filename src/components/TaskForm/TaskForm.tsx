@@ -12,6 +12,7 @@ import { useNotificationContext } from "../../contexts/NotificationContext";
 import { createTask, updateTask } from "../../api";
 
 export const TaskForm = () => {
+  const [loading, setLoading] = React.useState(false);
   const auth = useAuthContext();
   const { user } = auth;
   const { currentTask, setCurrentTask } = useTaskContext();
@@ -34,6 +35,7 @@ export const TaskForm = () => {
   const { createNotification } = useNotificationContext();
 
   async function handleSubmit() {
+    setLoading(true);
     if (!title) setTask({ ...task, title: "New Task" });
 
     const token = localStorage.getItem("token");
@@ -47,14 +49,21 @@ export const TaskForm = () => {
       ? updateTask(token, id, description, title, endAt, priority, taskGroup)
       : createTask(token, description, title, endAt, priority, taskGroup);
 
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      const json = await response.json();
-      createNotification({ type: "Alert", message: json });
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const json = await response.json();
+        throw new Error(json);
+      }
+      recoverTasks();
+    } catch (error) {
+      if (error instanceof Error) {
+        createNotification({ type: "Alert", message: error.message });
+      }
+    } finally {
+      setLoading(false);
+      setShowModal(false);
     }
-
-    recoverTasks();
-    setShowModal(false);
   }
 
   React.useEffect(() => {
@@ -89,7 +98,11 @@ export const TaskForm = () => {
           }
         ></textarea>
       </div>
-      <button className={styles.saveTask} onClick={handleSubmit}>
+      <button
+        className={styles.saveTask}
+        disabled={loading}
+        onClick={handleSubmit}
+      >
         {task.id ? "Update" : "Create"}
       </button>
     </div>

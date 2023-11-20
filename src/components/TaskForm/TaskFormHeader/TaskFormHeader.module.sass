@@ -1,3 +1,5 @@
+@import '/src/styles/variables/breakpoints'
+    
 .header 
     display: flex 
     align-items: center
@@ -16,9 +18,20 @@
         align-items: center
         .icon
             padding: .25rem
+            cursor: pointer
+            transition: all .3s
             svg 
                 fill: #A2A2A2
 
                 width: 16px
                 path 
                     fill: #A2A2A2
+    @media ( min-width: $desktop)
+        font-size: .875rem
+
+        .menu 
+            .icon:hover 
+                transform: scale(1.2)
+                
+
+        

@@ -8,13 +8,13 @@ interface PriorityPickerInterface {
 export const PriorityPicker = ({ setPriority }: PriorityPickerInterface) => {
   return (
     <div className={styles.priorityPicker}>
-      <div onClick={() => setPriority("high")}>
+      <div className={styles.option} onClick={() => setPriority("high")}>
         <PriorityOption priority="high" />
       </div>
-      <div onClick={() => setPriority("medium")}>
+      <div className={styles.option} onClick={() => setPriority("medium")}>
         <PriorityOption priority="medium" />
       </div>
-      <div onClick={() => setPriority("low")}>
+      <div className={styles.option} onClick={() => setPriority("low")}>
         <PriorityOption priority="low" />
       </div>
     </div>
