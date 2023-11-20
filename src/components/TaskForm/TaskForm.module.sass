@@ -1,3 +1,5 @@
+@import '/src/styles/variables/breakpoints'
+    
 .form 
     display: flex
     flex-direction: column
@@ -11,31 +13,6 @@
 
     border-radius: 16px
 
-    .header 
-        display: flex 
-        align-items: center
-        justify-content: space-between
-
-        font-size: 0.6875rem
-        font-weight: 500
-        color: #A2A2A2
-
-        margin-bottom: .75rem
-
-        width: 100%
-
-        .menu 
-            display: flex
-            align-items: center
-            .icon
-                padding: .25rem
-                svg 
-                    fill: #A2A2A2
-
-                    width: 16px
-                    path 
-                        fill: #A2A2A2
-
     .title 
         all: unset
         font-size: 1.5rem
@@ -46,28 +23,6 @@
 
         margin-bottom: 1rem
 
-    .popups 
-        display: flex
-        flex-wrap: wrap
-        gap: .5rem
-
-        width: 100%
-
-        margin-bottom: 2rem
-
-        position: relative
-
-        .popupItem 
-            padding: 0.3125rem 1rem
-            border-radius: 1rem
-            background: #FAFAFA
-            border: 1px solid #eee
-
-            display: flex
-            gap: .5rem
-
-            font-size: 1.25rem
-            color: #252627
     
     .description
         display: flex
@@ -82,6 +37,8 @@
         .textarea 
             height: 100%
             flex: 1
+
+            outline: none
 
             resize: none
             border: none
@@ -108,3 +65,25 @@
         color: #000
 
         border-radius: .5rem
+
+        cursor: pointer
+
+        transition: all .3s
+
+        &:hover 
+            background: #ffad41
+
+        &:disabled
+            opacity: .8
+            cursor: wait
+
+    @media ( min-width: $desktop )
+        width: 50%
+        max-height: 80vh
+
+        .title 
+            font-size: 2.5rem
+        
+
+        .description
+            font-size: 1.25rem

@@ -1,3 +1,5 @@
+@import '/src/styles/variables/breakpoints'
+    
 .popup 
     background: #fff
 
@@ -15,4 +17,7 @@
     border: 1px solid #ddd
 
     opacity: .5
+
+    @media ( min-width: $desktop )
+        max-width: 21rem
     
