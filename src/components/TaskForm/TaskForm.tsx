@@ -36,7 +36,6 @@ export const TaskForm = () => {
 
   async function handleSubmit() {
     setLoading(true);
-    if (!title) setTask({ ...task, title: "New Task" });
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -46,8 +45,23 @@ export const TaskForm = () => {
     }
 
     const { url, options } = task.id
-      ? updateTask(token, id, description, title, endAt, priority, taskGroup)
-      : createTask(token, description, title, endAt, priority, taskGroup);
+      ? updateTask(
+          token,
+          id,
+          description,
+          title ? title : "New Task",
+          endAt,
+          priority,
+          taskGroup
+        )
+      : createTask(
+          token,
+          description,
+          title ? title : "New Task",
+          endAt,
+          priority,
+          taskGroup
+        );
 
     try {
       const response = await fetch(url, options);
